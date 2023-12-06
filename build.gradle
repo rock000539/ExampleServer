@@ -1,0 +1,163 @@
+apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'io.franzbecker.gradle-lombok'
+apply plugin: 'war'
+apply plugin: 'com.diffplug.spotless'
+apply plugin: 'org.gradlewebtools.minify'
+
+group 'com.pk'
+version = '1.0.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+ext {
+    cloudBaseVersion = '2.1.0'
+}
+
+repositories {
+    mavenCentral()
+
+    maven {
+        allowInsecureProtocol = true
+        url 'http://nexus.softbi.com:8081/nexus/content/groups/public/'
+        credentials {
+            username 'biuser'
+            password 'bi2009'
+        }
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "com.bi.base.cloud:cloud-base:$cloudBaseVersion"
+    }
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+dependencies {
+
+    // BI cloud base
+    implementation ("com.bi.base.cloud:cloud-base:$cloudBaseVersion") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-jta-atomikos'
+    }
+
+    // Swagger
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.3'
+
+    // Database
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:7.3.0.jre8-preview'
+
+    // Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'junit:junit'
+
+    // For war
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+    // Http Client
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    
+    // Mail
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation group: 'org.mnode.ical4j', name: 'ical4j', version: '4.0.0-beta8'
+			
+	// kafka
+	implementation 'org.springframework.kafka:spring-kafka'
+	
+	testImplementation 'org.springframework.kafka:spring-kafka-test'
+	
+    // Csv export
+    implementation 'net.sf.supercsv:super-csv:2.4.0'
+
+    // POI
+	implementation 'org.apache.poi:poi:5.2.2'
+    implementation 'org.apache.poi:poi-ooxml:5.2.2'
+
+	// Jasperreports
+	implementation 'net.sf.jasperreports:jasperreports:6.19.0'
+	implementation 'net.sf.jasperreports:jasperreports-fonts:6.19.0'
+	implementation 'com.lowagie:itext:2.1.7'
+	
+    // Http Client
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+
+    //Jasypt
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+
+    // ESAPI
+    implementation ('org.owasp.esapi:esapi:2.4.0.0'){
+        exclude group: 'log4j', module: 'log4j'
+    }
+    
+    // FTP
+    implementation 'commons-net:commons-net:3.8.0'
+
+    // FTP connection pool
+    implementation 'org.apache.commons:commons-pool2:2.11.1'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        // Spring boot
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.6.3'
+
+        // Lombok
+        classpath 'io.franzbecker:gradle-lombok:5.0.0'
+
+        // Format code
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:6.1.0'
+        classpath 'org.gradle-webtools.minify:gradle-minify-plugin:1.3.0'
+    }
+}
+
+springBoot {
+    mainClass = 'com.bi.base.ApplicationMain'
+}
+
+task minifyJS(type: org.gradlewebtools.minify.JsMinifyTask) {
+    srcDir = project.file("${buildDir}/resources/main/static/model")
+    dstDir = project.file("${buildDir}/resources/main/static/model")
+    options.originalFileNames = true
+}
+
+spotless {
+    java {
+        googleJavaFormat()
+        eclipse().configFile 'config/format/style-java.xml'
+        licenseHeader '/*\n * Copyright (c) $YEAR -Parker.\n * All rights reserved.\n */'
+    }
+    format 'javascript', {
+        target 'src/main/resources/static/model/**/*.js', 'src/main/resources/static/js/bi/**/*.js'
+        prettier().configFile('config/format/style-javascript.json')
+    }
+}
+
+war {
+    enabled = false
+}
+
+bootWar {
+    dependsOn minifyJS
+    archiveFileName = 'pbs.war'
+}

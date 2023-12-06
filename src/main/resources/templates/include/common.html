@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="htmlInfo">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="商智資訊">
+	<meta name="author" content="">
+	<link th:href="@{/images/favicon.png}" rel="shortcut icon" type="image/x-icon">
+	<title>商智資訊WMS</title>
+
+	<style>
+.modal .form-control:disabled {
+	background: #fff;
+}
+</style>
+</th:block>
+
+<th:block th:fragment="contentHeader">
+	<script type="text/x-template" id="vue-content-header-template" th:inline="javascript">
+	<header class="navbar navbar-header navbar-header-fixed">
+		<div class="marquee">
+		</div>
+		<!-- content-header -->
+	</header>
+	</script>
+	<script th:src="@{/model/common/contentHeader.js}"></script>
+</th:block>
+
+<th:block th:fragment="asideMenu">
+	<!--Sidebar Menu Starts  
+	 -->
+	<script type="text/x-template" id="vue-aside-menu-template" th:inline="javascript">
+	<aside class="aside aside-fixed">
+		<div class="aside-body">
+		</div>
+	</aside>
+	</script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/dashforge/dashforge.aside.js}"></script>
+	<script th:src="@{/model/include/common/asideMenu.js}"></script>
+	<!--Sidebar Menu ends-->
+</th:block>
+
+
+<th:block th:fragment="pagination">
+	<script id="vue-pagination-template" th:inline="javascript" type="text/x-template">  
+	<nav aria-label="Page navigation" class="bi-pages" v-if="pageable !== null && pageable.totalPages > 0">
+		<span class="page-current">
+			<P>目前頁數: {{nowPage+1}}</p>
+		</span>
+		<ul class="pagination  pagination-sm">
+			<li class="page-item First-left-etc" @click.prevent="clickPage(first)"><a class="page-link" href="#"></a></li>
+			<li class="page-item left-etc" @click.prevent="clickPage(prev)"><a class="page-link" href="#"></a></li>
+			<li class="page-item"><select id="sel1" class="form-select" v-model="queryPage" @change="clickPage(queryPage-1)">
+					<option v-for="pageNum in pageable.totalPages" :value="pageNum" :label="pageNum">{{pageNum}}</option>
+			</select></li>
+			<li class="page-item right-etc" @click.prevent="clickPage(next)"><a class="page-link" href="#"></a></li>
+			<li class="page-item Last-right-etc" @click.prevent="clickPage(last)"><a class="page-link" href="#"></a></li>
+		</ul>
+	</nav>
+	</script>
+	<script th:src="@{/model/common/pagination.js}"></script>
+</th:block>
+
+
+<th:block th:fragment="treeMenu">
+	<script id="vue-tree-menu-template" th:inline="javascript" type="text/x-template">
+			<ul style class="bi-tree-root">
+				<template v-for="item in datas">
+					<li>
+						<div class="bi-tree-arrow" v-if="item.leaf"></div>
+						<div class="bi-tree-arrow" :class="{'bi-tree-collapsed' : item.isShow != true, 'bi-tree-expanded' : item.isShow == true }" @click="toggleExpand(item)" v-if="!item.leaf"></div>
+							<div v-if="isEdit" class="bi-tree-checkbox" :class="{'bi-tree-checked' : _.includes(checkedDatas, item.id) }" @click="checked(item.id)"></div>
+							<input type="checkbox" name="menuCodes" :value="item.id" v-model="checkedDatas" style="display:none;">
+						    
+							<div class="bi-tree-text bi-tree-node" :class="{'hover': item.isHover }"  
+								@mouseenter="$set(item, 'isHover', true)"
+    							@mouseleave="$set(item, 'isHover', false)" @click="toggleExpand(item)">{{item.text}}</div>
+							<a href="#" v-if="config && config.text && config.onClick" @click="config.onClick(item)">{{customerBtnLabel}}</a>
+
+						    <vue-tree-menu ref="childMenus" v-if="item.children" v-show="item.isShow == true" 
+								 :config="config" :datas="item.children" :parent-checked="item.checked" :parent-id="item.id" :set-parent-date="toggleCheckedDate" :is-edit="isEdit"> </vue-tree-menu>
+					</li>
+				</template>
+			</ul>
+	</script>
+	<script th:src="@{/model/common/treeMenu.js}"></script>
+</th:block>
+</html>

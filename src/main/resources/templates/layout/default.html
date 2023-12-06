@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<head>
+    <th:block th:insert="include/common :: htmlInfo"></th:block>
+
+    <th:block th:insert="include/resource :: css"></th:block>
+    <th:block layout:fragment="css"></th:block>
+</head>
+
+<body >
+    <div id="app" v-cloak>
+        <th:block layout:fragment="asideMenu">
+            <vue-aside-menu></vue-aside-menu>
+        </th:block>
+
+        <div class="content ht-100v pd-0">
+           <vue-content-header></vue-content-header>
+            <div class="content-body">
+            	<th:block layout:fragment="body"></th:block>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:insert="include/resource :: js"></th:block>
+    <th:block th:insert="include/resource :: config"></th:block>
+    <!-- Global compoment -->
+    <th:block th:insert="include/common :: asideMenu"></th:block>
+	<th:block th:insert="include/common :: contentHeader"></th:block>
+    
+    <th:block layout:fragment="js"></th:block>
+</body>
+</html>
+

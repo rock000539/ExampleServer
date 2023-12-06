@@ -1,0 +1,511 @@
+/*
+ * Dashforge File Manager Page
+ *
+ * This style is use in file manager page.
+ *
+ */
+
+.content.app-filemgr {
+  padding: 0 !important;
+}
+
+
+#filemgrMenuclose {
+  position: absolute;
+  z-index: 38;
+  left: 210px;
+  top: 14px;
+  font-size: 26px;
+  line-height: 1;
+  color: #04327a;
+  font-weight: bold;
+  box-shadow: 0px 0 8px rgba(149, 186, 253, 0.4);
+  transition: all 0.3s ease 0s;
+}
+
+#filemgrMenuclose.close {
+  transform: rotate(180deg);
+}
+
+
+/* @media (max-width: 991.98px) { 
+   .filemgr-sidebar-show .filemgr-sidebar {
+    left: 0;
+    opacity: 1;
+    visibility: visible; }
+   .filemgr-sidebar-show .filemgr-content {
+    transform: translateX(220px); } } */
+
+.filemgr-wrapper {
+  position: fixed;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: margin-left ease-in-out 0.5s;
+}
+
+.filemgr-wrapper.filemgr-sidebar-close {
+  margin-left: -220px;
+}
+
+@media (min-width: 992px) {
+  .filemgr-wrapper {
+    top: 60px;
+  }
+}
+
+@media (min-width: 992px) {
+  .filemgr-wrapper-two {
+    position: relative;
+    height: calc(100vh - 70px);
+    top: auto;
+  }
+
+  .filemgr-wrapper-two.filemgr-sidebar-close {
+    margin-left: -220px;
+  }
+}
+
+
+.filemgr-sidebar {
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0px;
+  width: 220px;
+  border-right: 1px solid rgba(72, 94, 144, 0.16);
+  box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.3s;
+}
+
+/* @media (prefers-reduced-motion: reduce) {
+    .filemgr-sidebar {
+      transition: none; } }
+  @media (min-width: 992px) {
+    .filemgr-sidebar {
+      left: 0;
+      opacity: 1;
+      visibility: visible; } } */
+
+.filemgr-sidebar-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+  padding: 10px 15px;
+}
+
+.filemgr-sidebar-header .dropdown-link {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 15px;
+  position: relative;
+  z-index: 5;
+}
+
+.filemgr-sidebar-header .dropdown-menu {
+  box-shadow: none;
+  width: 100%;
+  max-width: 220px;
+  border-width: 0 0 1px;
+  border-color: rgba(72, 94, 144, 0.16);
+  padding: 10px;
+  margin: 70px 0 0 !important;
+  border-radius: 0;
+  transform: none !important;
+  z-index: 30;
+  background: #f8f9fa;
+}
+
+.filemgr-sidebar-header .dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 28px;
+  border-bottom: 10px solid rgba(192, 204, 218, 0.53);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+.filemgr-sidebar-header .dropdown-menu::after {
+  content: '';
+  position: absolute;
+  top: -8.5px;
+  right: 29px;
+  border-bottom: 9px solid #f8f9fa;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+}
+
+.filemgr-sidebar-header .dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 10px;
+}
+
+.filemgr-sidebar-header .dropdown-item+.dropdown-item {
+  margin-top: 4px;
+}
+
+.filemgr-sidebar-header .dropdown-item:hover:after {
+  content: '→';
+  position: absolute;
+  right: 20px;
+}
+
+.filemgr-sidebar-header .dropdown-item i {
+  font-size: 18px;
+  margin-right: 10px;
+}
+.asideOverview .dropdown-menu li{
+  font-size: 14px;
+}
+@media (min-width: 1600px) {
+  .section-nav~.container-fluid {
+    padding-right: 160px;
+  }
+}
+
+
+#navSection {
+  border-left: 1px solid rgba(72, 94, 144, 0.16);
+  padding-left: 15px;
+}
+
+.section-nav {
+  position: fixed;
+  top: 150px;
+  bottom: 150px;
+  right: 0;
+  width: 160px;
+  padding: 20px 15px;
+  display: none;
+}
+
+@media (min-width: 1600px) {
+  .section-nav {
+    display: block;
+  }
+}
+
+.section-nav .nav-label {
+  font-size: 10px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter UI", Roboto, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: #8392a5;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.section-nav .nav-link {
+  color: #1b2e4b;
+  padding: 0;
+  display: block;
+  position: relative;
+  font-size: 13px;
+}
+
+.section-nav .nav-link:hover {
+  color: #04539e;
+}
+
+.section-nav .nav-link+.nav-link {
+  margin-top: 8px;
+}
+
+.section-nav .nav-link.active {
+  color: #04539e;
+  font-weight: 500;
+  letter-spacing: -.12px;
+}
+
+.section-nav .nav-link.active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -31px;
+  margin-top: -.5px;
+  background-color: #04539e;
+  height: 1px;
+  width: 30px;
+}
+
+
+.filemgr-sidebar-body {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.heighter-cusblock .filemgr-sidebar-header {
+  height: 240px;
+}
+
+.heighter-cusblock .filemgr-sidebar-body {
+  top: 240px;
+}
+
+.filemgr-content {
+  position: absolute;
+  top: 0;
+  left: 220px;
+  right: 0;
+  bottom: 0;
+  padding: 15px;
+  background: var(--body-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filemgr-content {
+    transition: none;
+  }
+}
+
+/* @media (min-width: 992px) {
+    .filemgr-content {
+      left: 220px;
+    } }  */
+@media (min-width: 1400px) {
+
+  /* .filemgr-content{
+          left: 220px;
+        } */
+  .filemgr-content.with-sectionnav {
+    left: 220px;
+    right: 160px;
+  }
+}
+
+
+.filemgr-content-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+}
+
+.filemgr-content-header .feather-search {
+  color: #8392a5;
+  align-self: center;
+  width: 18px;
+  stroke-width: 2.8px;
+  margin-right: 10px;
+  margin-top: -2px;
+}
+
+.filemgr-content-header .search-form {
+  display: flex;
+  align-items: center;
+}
+
+.filemgr-content-header .search-form .form-control {
+  border-width: 0;
+  background-color: transparent;
+  font-size: inherit;
+  padding: 0;
+  color: #1b2e4b;
+}
+
+.filemgr-content-header .nav-link {
+  padding: 0;
+}
+
+.filemgr-content-header .nav-link+.nav-link {
+  margin-left: 10px;
+}
+
+.filemgr-content-header .nav-link svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.2px;
+}
+
+.filemgr-content-header .nav-link svg.feather-settings {
+  width: 18px;
+  height: 18px;
+}
+
+.filemgr-content-body {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 15px;
+}
+
+.dropdown-file {
+  position: absolute;
+  top: 8px;
+  right: 4px;
+}
+
+.dropdown-file .dropdown-link {
+  color: rgba(131, 146, 165, 0.5);
+}
+
+.dropdown-file .dropdown-link:hover,
+.dropdown-file .dropdown-link:focus {
+  color: #1b2e4b;
+}
+
+.dropdown-file .dropdown-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.dropdown-file .dropdown-item {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.dropdown-file .dropdown-item svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.5px;
+  margin-right: 10px;
+  color: #8392a5;
+}
+
+.card-file {
+  padding: 10px;
+  position: relative;
+  border-color: rgba(72, 94, 144, 0.16);
+  transition: all 0.2s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-file {
+    transition: none;
+  }
+}
+
+.card-file:hover,
+.card-file:focus {
+  border-color: #c0ccda;
+}
+
+.card-file .card-body {
+  padding: 15px 0 0;
+}
+
+.card-file .card-footer {
+  font-size: 11px;
+  color: #c0ccda;
+  padding: 10px 0 0;
+  border-top-width: 0;
+  background-color: transparent;
+}
+
+.card-file h6 {
+  margin-bottom: 0;
+}
+
+.card-file h6 a {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+}
+
+.card-file p {
+  margin-bottom: 0;
+  color: #475362;
+}
+
+.card-file span {
+  font-size: 12px;
+  color: #8392a5;
+}
+
+.card-file-thumb {
+  background-color: #f5f6fa;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
+@media (min-width: 576px) {
+  .card-file-thumb {
+    height: 100px;
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-file-thumb {
+    height: 120px;
+    font-size: 48px;
+  }
+}
+
+.media-folder {
+  position: relative;
+  border: 1px solid rgba(72, 94, 144, 0.16);
+  padding: 10px 12px;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media-folder {
+    transition: none;
+  }
+}
+
+.media-folder:hover,
+.media-folder:focus {
+  border-color: #c0ccda;
+}
+
+.media-folder>svg {
+  width: 42px;
+  height: 42px;
+  stroke-width: 1.5px;
+  color: #04539e;
+  opacity: .7;
+}
+
+.media-folder .media-body {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.media-folder .media-body h6 {
+  margin-bottom: 1px;
+}
+
+.media-folder .media-body span {
+  font-size: 12px;
+  color: #8392a5;
+  display: block;
+}
+
+@media (min-width: 992px) {
+  .aside-filemgr+.content {
+    margin-left: 60px;
+  }
+}

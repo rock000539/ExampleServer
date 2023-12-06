@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="css">
+	<!-- Framework plugin BI -->
+	<link rel="stylesheet" th:href="@{/css/framework-plugin/vue/vue-loading.css}"/>
+	
+	<link rel="stylesheet" th:href="@{/css/framework-plugin/fonts/line-awesome/css/line-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/css/framework-plugin/fonts/@fortawesome/fontawesome-free/css/all.min.css}">
+	<link rel="stylesheet" th:href="@{/css/framework-plugin/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/framework-plugin/dashforge.css}">
+	<link rel="stylesheet" th:href="@{/css/framework-plugin/dashforge.profile.css}">
+	<link rel="stylesheet" th:href="@{/css/framework-plugin/dashforge.filemgr.css}">
+	<link rel="stylesheet" th:href="@{/css/framework-plugin/skin.light.css}">
+	<link rel="stylesheet" th:href="@{/css/framework-plugin/calendarstyle.css}">
+	<link rel="stylesheet" th:href="@{/css/framework-plugin/fonts/bs-font/bootstrap-icons.css}">
+	<link rel="stylesheet" th:href="@{/css/framework-plugin/oppbiz.css}">
+
+	<!-- Framework plugin -->
+</th:block>
+
+<th:block th:fragment="js">
+	<!-- Framework plugin -->
+
+	<script type="text/javascript" th:src="@{/js/framework-plugin/moment/moment.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/moment/moment-with-locales.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/sweetalert2/sweetalert2.all.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/lodash/lodash.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/numeral/numeral.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/vue/vue.global.prod.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/vue/vuex.global.prod.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/vue/vee-validate.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/vue/vee-validate-rules.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/vue/vee-validate-i18n.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/vue/vue-loading-overlay.js}"></script>
+
+	<script type="text/javascript" th:src="@{/js/framework-plugin/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/bootstrap/bootstrap.bundle.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/dashforge/dashforge.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/amcharts/index.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/amcharts/xy.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/amcharts/Animated.js}"></script>
+	<script type="text/javascript" th:src="@{/js/framework-plugin/amcharts/percent.js}"></script>
+
+	<!-- framework core -->
+</th:block>
+
+<th:block th:fragment="config">
+	<script th:src="@{/model/app.js}"></script>
+	<script th:src="@{/model/util/lodash.js}"></script>
+	<script th:src="@{/model/filter.js}"></script>
+	<script th:src="@{/model/include/store/userInfo.js}"></script>
+
+	<script type="text/javascript" th:inline="javascript">
+		App.config({
+			apiPath: /*[[@{/api/v1}]]*/'',
+			contextPath: [[${#httpServletRequest.getContextPath()}]],
+		});
+	</script>
+</th:block>
+</html>
