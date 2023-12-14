@@ -78,8 +78,13 @@ dependencies {
 			
 	// kafka
 	implementation 'org.springframework.kafka:spring-kafka'
-	
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
+	
+	//redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.session:spring-session-core'
+    implementation 'org.springframework.session:spring-session-data-redis'
+    implementation group: 'redis.clients', name: 'jedis', version: '3.7.1' //session-data-redis有限定版本
 	
     // Csv export
     implementation 'net.sf.supercsv:super-csv:2.4.0'
