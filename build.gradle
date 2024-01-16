@@ -103,6 +103,12 @@ dependencies {
 
     //Jasypt
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+    
+    // axis 2
+    implementation group: 'org.apache.axis2', name: 'axis2-adb', version: '1.6.2'
+    implementation group: 'org.apache.axis2', name: 'axis2-transport-http', version: '1.6.2'
+    implementation group: 'org.apache.axis2', name: 'axis2-transport-local', version: '1.6.2'
+    
 
     // ESAPI
     implementation ('org.owasp.esapi:esapi:2.4.0.0'){

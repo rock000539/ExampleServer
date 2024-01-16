@@ -41,7 +41,7 @@ public class UserAccessLoggingInterceptor implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 		if (HandlerMethod.class.equals(handler.getClass())) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
-			Class clazz = handlerMethod.getBeanType().getSuperclass();
+			Class<?> clazz = handlerMethod.getBeanType().getSuperclass();
 			if (clazz.equals(BaseController.class) || clazz.equals(BaseController.class)) {
 				String path = request.getServletPath();
 				int status = response.getStatus();
