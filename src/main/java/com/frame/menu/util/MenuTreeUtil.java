@@ -1,18 +1,17 @@
 /*
- * Copyright (c) 2021 - SoftBI Corporation Limited.
+ * Copyright (c) 2021 -Parker.
  * All rights reserved.
  */
 package com.frame.menu.util;
 
+import com.frame.menu.model.Menu;
+import com.frame.menu.model.MenuTree;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-
-import com.frame.menu.model.Menu;
-import com.frame.menu.model.MenuTree;
 
 /**
  * Provides menu format generator.

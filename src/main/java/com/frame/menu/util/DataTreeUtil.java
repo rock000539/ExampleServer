@@ -1,15 +1,14 @@
 /*
- * Copyright (c) 2021 - SoftBI Corporation Limited.
+ * Copyright (c) 2021 -Parker.
  * All rights reserved.
  */
 package com.frame.menu.util;
 
+import com.frame.menu.model.DataTree;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-
-import com.frame.menu.model.DataTree;
 
 /**
  * @author Parker Huang

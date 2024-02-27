@@ -14,6 +14,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
 
+
 ext {
     cloudBaseVersion = '2.1.0'
 }
@@ -108,7 +109,7 @@ dependencies {
     // FTP connection pool
     implementation 'org.apache.commons:commons-pool2:2.11.1'
     
-    implementation files('cloud-base-2.1.0-sources.jar')
+    implementation files('lib/cloud-base-2.1.0.jar')
 }
 
 buildscript {
