@@ -1,11 +1,10 @@
 /*
- * Copyright (c) 2022 - SoftBI Corporation Limited.
+ * Copyright (c) 2022 -Parker.
  * All rights reserved.
  */
 package com.exampleServer.rest.dao;
 
 import java.lang.reflect.Type;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.lang.Nullable;

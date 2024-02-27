@@ -4,17 +4,6 @@
  */
 package com.frame.interceptor;
 
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
-
 import com.bi.base.database.annotation.BaseAutowired;
 import com.bi.base.database.dao.BaseDao;
 import com.bi.base.web.BaseController;
@@ -22,6 +11,14 @@ import com.exampleServer.adm.model.AdmUserAccessLogs;
 import com.frame.model.User;
 import com.frame.util.IpUtil;
 import com.frame.util.UserUtil;
+import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
  * 使用者使用紀錄

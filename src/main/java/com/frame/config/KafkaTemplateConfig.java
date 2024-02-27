@@ -1,9 +1,10 @@
 /*
- * Copyright (c) 2023 - SoftBI Corporation Limited.
+ * Copyright (c) 2023 -Parker.
  * All rights reserved.
  */
 package com.frame.config;
 
+import com.frame.util.CheckmarxUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,7 +13,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.util.HashMap;
 import java.util.Map;
-
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,48 +25,44 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
-import com.frame.util.CheckmarxUtil;
-
-import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 @Configuration
 @ConditionalOnProperty(prefix = "kafka", name = "used", havingValue = "true")
 public class KafkaTemplateConfig {
 
-    @Value("${kafka.server.url:}")
-    private String kafkaServerUrl;
+	@Value("${kafka.server.url:}")
+	private String kafkaServerUrl;
 
-    @Value("${kafka.server.jaas.account:}")
-    private String jaasAccount;
+	@Value("${kafka.server.jaas.account:}")
+	private String jaasAccount;
 
-    @Value("${kafka.server.jaas.password:}")
-    private String jaasPassword;
+	@Value("${kafka.server.jaas.password:}")
+	private String jaasPassword;
 
-    @Value("${kafka.server.cer.file.path:}")
-    private String cerFilePath;
+	@Value("${kafka.server.cer.file.path:}")
+	private String cerFilePath;
 
-    @Value("${kafka.server.cer.password:}")
-    private String cerFilePassword;
+	@Value("${kafka.server.cer.password:}")
+	private String cerFilePassword;
 
-    @Value("${project.file.base.path:}")
-    private String keystoreFilePath;
+	@Value("${project.file.base.path:}")
+	private String keystoreFilePath;
 
-    @Primary
-    @Bean
-    public KafkaTemplate<String, Object> kafkaTemplate() throws Exception {
-        return new KafkaTemplate<>(producerFactory());
-    }
+	@Primary
+	@Bean
+	public KafkaTemplate<String, Object> kafkaTemplate() throws Exception {
+		return new KafkaTemplate<>(producerFactory());
+	}
 
-    @Bean
-    public ProducerFactory<String, Object> producerFactory() {
-        try {
-            return new DefaultKafkaProducerFactory<>(producerConfigs());
-        } catch (Exception e) {
-            log.error("Failed to create Kafka producer factory.", e);
-            throw e;
-        }
-    }
+	@Bean
+	public ProducerFactory<String, Object> producerFactory() {
+		try {
+			return new DefaultKafkaProducerFactory<>(producerConfigs());
+		} catch (Exception e) {
+			log.error("Failed to create Kafka producer factory.", e);
+			throw e;
+		}
+	}
 
 	@Bean
 	public Map<String, Object> producerConfigs() {
@@ -98,44 +95,43 @@ public class KafkaTemplateConfig {
 		// 壓縮消息，支持四種類型，分別為：none、lz4、gzip、snappy，默認為none。
 		// 消費者默認支持解壓，所以壓縮設置在生產者，消費者無需設置。
 		props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "none");
-		
-	    // SSL/TLS 配置
-        convertCerFile();
-        props.put("security.protocol", "SASL_SSL");
-        props.put("ssl.truststore.location", keystoreFilePath + File.separator + "kafkaJks.jks");
-        props.put("ssl.truststore.password", cerFilePassword);
-        
-        //其他設定
-        props.put("sasl.mechanism", "SCRAM-SHA-256");
-        props.put("socket.connection.setup.timeout.ms", 5000);
-        props.put("request.timeout.ms", 150000);
+
+		// SSL/TLS 配置
+		convertCerFile();
+		props.put("security.protocol", "SASL_SSL");
+		props.put("ssl.truststore.location", keystoreFilePath + File.separator + "kafkaJks.jks");
+		props.put("ssl.truststore.password", cerFilePassword);
+
+		// 其他設定
+		props.put("sasl.mechanism", "SCRAM-SHA-256");
+		props.put("socket.connection.setup.timeout.ms", 5000);
+		props.put("request.timeout.ms", 150000);
 		return props;
 	}
-	
-	
-	//cer檔轉jks檔
-    private void convertCerFile() {
-        try {
-            CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-            FileInputStream cerInputStream = new FileInputStream(cerFilePath);
-            Certificate certificate = certificateFactory.generateCertificate(cerInputStream);
 
-            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-            keyStore.load(null, cerFilePassword.toCharArray());
+	// cer檔轉jks檔
+	private void convertCerFile() {
+		try {
+			CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+			FileInputStream cerInputStream = new FileInputStream(cerFilePath);
+			Certificate certificate = certificateFactory.generateCertificate(cerInputStream);
 
-            keyStore.setCertificateEntry("kafkaJks", certificate);
+			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+			keyStore.load(null, cerFilePassword.toCharArray());
 
-            File keystoreFile = CheckmarxUtil.newFileSafely(keystoreFilePath, "kafkaJks.jks");
-            if (!keystoreFile.exists()) {
-                keystoreFile.createNewFile();
-            }
+			keyStore.setCertificateEntry("kafkaJks", certificate);
 
-            FileOutputStream keystoreOutputStream = new FileOutputStream(keystoreFile);
-            keyStore.store(keystoreOutputStream, cerFilePassword.toCharArray());
+			File keystoreFile = CheckmarxUtil.newFileSafely(keystoreFilePath, "kafkaJks.jks");
+			if (!keystoreFile.exists()) {
+				keystoreFile.createNewFile();
+			}
 
-            keystoreOutputStream.close();
-        } catch (Exception e) {
-            log.error("Failed to convert Cer File.", e);
-        }
-    }
+			FileOutputStream keystoreOutputStream = new FileOutputStream(keystoreFile);
+			keyStore.store(keystoreOutputStream, cerFilePassword.toCharArray());
+
+			keystoreOutputStream.close();
+		} catch (Exception e) {
+			log.error("Failed to convert Cer File.", e);
+		}
+	}
 }

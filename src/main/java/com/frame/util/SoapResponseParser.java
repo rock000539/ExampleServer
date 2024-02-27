@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 - SoftBI Corporation Limited.
+ * Copyright (c) 2024 -Parker.
  * All rights reserved.
  */
 package com.frame.util;

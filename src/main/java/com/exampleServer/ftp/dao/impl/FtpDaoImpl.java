@@ -1,16 +1,17 @@
 /*
- * Copyright (c) 2021 - SoftBI Corporation Limited.
+ * Copyright (c) 2021 -Parker.
  * All rights reserved.
  */
 package com.exampleServer.ftp.dao.impl;
 
+import com.exampleServer.ftp.dao.FtpDao;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
@@ -23,10 +24,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
-
-import com.exampleServer.ftp.dao.FtpDao;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Parker Huang

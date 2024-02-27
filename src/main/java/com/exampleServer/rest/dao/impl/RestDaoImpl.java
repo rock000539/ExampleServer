@@ -1,13 +1,16 @@
 /*
- * Copyright (c) 2022 - SoftBI Corporation Limited.
+ * Copyright (c) 2022 -Parker.
  * All rights reserved.
  */
 package com.exampleServer.rest.dao.impl;
 
+import com.bi.base.i18n.util.I18nUtil;
+import com.exampleServer.rest.dao.RestDao;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.util.Arrays;
-
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -20,12 +23,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
-
-import com.bi.base.i18n.util.I18nUtil;
-import com.exampleServer.rest.dao.RestDao;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Parker Huang
