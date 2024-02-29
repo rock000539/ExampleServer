@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+
+    <!--</fontFamily>-->
+    <fontFamily name="標楷體">
+        <normal>jasper/fonts/KAIU.TTF</normal>
+        <bold>jasper/fonts/KAIU.TTF</bold>
+        <italic>jasper/fonts/KAIU.TTF</italic>
+        <boldItalic>jasper/fonts/KAIU.TTF</boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+        <exportFonts>
+            <export key="net.sf.jasperreports.html">'標楷體', Arial, Helvetica, sans-serif</export>
+            <export key="net.sf.jasperreports.xhtml">'標楷體', Arial, Helvetica, sans-serif</export>
+        </exportFonts>
+    </fontFamily>
+    
+    <fontFamily name="微軟正黑體">
+        <normal>jasper/fonts/msjh.ttf</normal>
+        <bold>jasper/fonts/msjhbd.ttf</bold>
+        <italic>jasper/fonts/msjh.ttf</italic>
+        <boldItalic>jasper/fonts/msjh.ttf</boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+        <exportFonts>
+            <export key="net.sf.jasperreports.html">'微軟正黑體', Arial, Helvetica, sans-serif</export>
+            <export key="net.sf.jasperreports.xhtml">'微軟正黑體', Arial, Helvetica, sans-serif</export>
+        </exportFonts>
+    </fontFamily>
+       
+    <fontFamily name="EUDC">
+        <normal>jasper/fonts/EUDC.TTF</normal>
+        <bold>jasper/fonts/EUDC.TTF</bold>
+        <italic>jasper/fonts/EUDC.TTF</italic>
+        <boldItalic>jasper/fonts/EUDC.TTF</boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+    </fontFamily>
+    
+	<fontSet name="FontSet">
+		<family familyName="微軟正黑體" primary="true" />
+		<family familyName="標楷體" />
+	</fontSet>
+</fontFamilies>
