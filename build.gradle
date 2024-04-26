@@ -69,6 +69,13 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-core'
     implementation 'org.springframework.session:spring-session-data-redis'
     implementation group: 'redis.clients', name: 'jedis', version: '3.7.1' //session-data-redis有限定版本
+
+    //MySQL
+    implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.3.0'
+    //mybatis
+    implementation group: 'org.mybatis', name: 'mybatis-spring', version: '3.0.3'
+    //jta Atomikos
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jta-atomikos', version: '2.7.18'
 	
     // Csv export
     implementation 'net.sf.supercsv:super-csv:2.4.0'
@@ -108,7 +115,7 @@ dependencies {
 
     // FTP connection pool
     implementation 'org.apache.commons:commons-pool2:2.11.1'
-    
+
     implementation files('lib/cloud-base-2.1.0.jar')
 }
 
