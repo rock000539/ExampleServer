@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 -Parker.
+ * All rights reserved.
+ */
 package com.frame.config.datasource;
 
 import com.atomikos.icatch.jta.UserTransactionImp;
@@ -19,25 +23,25 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 @EnableTransactionManagement
 public class AtomikosTransactionConfig {
 
-    @Bean(name = "userTransaction")
-    public UserTransaction userTransaction() throws Throwable {
-        UserTransactionImp userTransactionImp = new UserTransactionImp();
-        userTransactionImp.setTransactionTimeout(10000);
-        return (UserTransaction) userTransactionImp;
-    }
+	@Bean(name = "userTransaction")
+	public UserTransaction userTransaction() throws Throwable {
+		UserTransactionImp userTransactionImp = new UserTransactionImp();
+		userTransactionImp.setTransactionTimeout(10000);
+		return (UserTransaction) userTransactionImp;
+	}
 
-    @Bean(name = "atomikosTransactionManager")
-    public TransactionManager atomikosTransactionManager() throws Throwable {
-        UserTransactionManager userTransactionManager = new UserTransactionManager();
-        userTransactionManager.setForceShutdown(false);
-        return (TransactionManager) userTransactionManager;
-    }
+	@Bean(name = "atomikosTransactionManager")
+	public TransactionManager atomikosTransactionManager() throws Throwable {
+		UserTransactionManager userTransactionManager = new UserTransactionManager();
+		userTransactionManager.setForceShutdown(false);
+		return (TransactionManager) userTransactionManager;
+	}
 
-    @Bean(name = "jtaTransactionManager")
-    @DependsOn({ "userTransaction", "atomikosTransactionManager" })
-    public PlatformTransactionManager transactionManager() throws Throwable {
-        UserTransaction userTransaction = userTransaction();
-        TransactionManager atomikosTransactionManager = atomikosTransactionManager();
-        return new JtaTransactionManager(userTransaction, atomikosTransactionManager);
-    }
+	@Bean(name = "jtaTransactionManager")
+	@DependsOn({"userTransaction", "atomikosTransactionManager"})
+	public PlatformTransactionManager transactionManager() throws Throwable {
+		UserTransaction userTransaction = userTransaction();
+		TransactionManager atomikosTransactionManager = atomikosTransactionManager();
+		return new JtaTransactionManager(userTransaction, atomikosTransactionManager);
+	}
 }

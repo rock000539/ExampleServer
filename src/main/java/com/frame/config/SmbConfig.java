@@ -1,5 +1,8 @@
+/*
+ * Copyright (c) 2024 -Parker.
+ * All rights reserved.
+ */
 package com.frame.config;
-
 
 import jcifs.CIFSContext;
 import jcifs.context.SingletonContext;
@@ -13,19 +16,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SmbConfig {
 
-    @Value("${smbServerUrl}")
-    String smbServerUrl;
+	@Value("${smbServerUrl}")
+	String smbServerUrl;
 
-    @Value("${smbServerUrl}")
-    String smbServerUserName;
+	@Value("${smbServerUrl}")
+	String smbServerUserName;
 
-    @Value("${smbServerUrl}")
-    String smbServerPassword;
+	@Value("${smbServerUrl}")
+	String smbServerPassword;
 
-    @Bean
-    public CIFSContext cifsContext() {
-            NtlmPasswordAuthenticator auth = new NtlmPasswordAuthenticator(smbServerUrl, smbServerUserName, smbServerPassword);
-            CIFSContext baseContext = SingletonContext.getInstance();
-            return baseContext.withCredentials(auth);
-    }
+	@Bean
+	public CIFSContext cifsContext() {
+		NtlmPasswordAuthenticator auth = new NtlmPasswordAuthenticator(smbServerUrl, smbServerUserName, smbServerPassword);
+		CIFSContext baseContext = SingletonContext.getInstance();
+		return baseContext.withCredentials(auth);
+	}
 }

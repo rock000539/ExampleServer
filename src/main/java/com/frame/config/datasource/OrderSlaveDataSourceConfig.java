@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 -Parker.
+ * All rights reserved.
+ */
 package com.frame.config.datasource;
 
 import com.atomikos.jdbc.AtomikosDataSourceBean;
@@ -20,41 +24,40 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 @Configuration
 public class OrderSlaveDataSourceConfig {
 
-    @Bean("orderSlaveDataSource")
-    DataSource dataSource(OrderSlaveDbProperties orderSlaveDbProps) throws SQLException {
-        MysqlXADataSource mysqlXADataSource = new MysqlXADataSource();
-        mysqlXADataSource.setUrl(orderSlaveDbProps.getJdbcUrl());
-        mysqlXADataSource.setPassword(orderSlaveDbProps.getPassWord());
-        mysqlXADataSource.setUser(orderSlaveDbProps.getUserName());
-        mysqlXADataSource.setPinGlobalTxToPhysicalConnection(true);
+	@Bean("orderSlaveDataSource")
+	DataSource dataSource(OrderSlaveDbProperties orderSlaveDbProps) throws SQLException {
+		MysqlXADataSource mysqlXADataSource = new MysqlXADataSource();
+		mysqlXADataSource.setUrl(orderSlaveDbProps.getJdbcUrl());
+		mysqlXADataSource.setPassword(orderSlaveDbProps.getPassWord());
+		mysqlXADataSource.setUser(orderSlaveDbProps.getUserName());
+		mysqlXADataSource.setPinGlobalTxToPhysicalConnection(true);
 
-        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
-        xaDataSource.setXaDataSource(mysqlXADataSource);
-        xaDataSource.setUniqueResourceName(orderSlaveDbProps.getUniqueResourceName());
-        xaDataSource.setBorrowConnectionTimeout(orderSlaveDbProps.getBorrowConnectionTimeout());
-        xaDataSource.setLoginTimeout(orderSlaveDbProps.getLoginTimeout());
-        xaDataSource.setMaintenanceInterval(orderSlaveDbProps.getMaintenanceInterval());
-        xaDataSource.setMaxIdleTime(orderSlaveDbProps.getMaxIdleTime());
-        xaDataSource.setTestQuery(orderSlaveDbProps.getTestQuery());
-        xaDataSource.setUniqueResourceName(orderSlaveDbProps.getUniqueResourceName());
-        return xaDataSource;
-    }
+		AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
+		xaDataSource.setXaDataSource(mysqlXADataSource);
+		xaDataSource.setUniqueResourceName(orderSlaveDbProps.getUniqueResourceName());
+		xaDataSource.setBorrowConnectionTimeout(orderSlaveDbProps.getBorrowConnectionTimeout());
+		xaDataSource.setLoginTimeout(orderSlaveDbProps.getLoginTimeout());
+		xaDataSource.setMaintenanceInterval(orderSlaveDbProps.getMaintenanceInterval());
+		xaDataSource.setMaxIdleTime(orderSlaveDbProps.getMaxIdleTime());
+		xaDataSource.setTestQuery(orderSlaveDbProps.getTestQuery());
+		xaDataSource.setUniqueResourceName(orderSlaveDbProps.getUniqueResourceName());
+		return xaDataSource;
+	}
 
-    @Bean(name = "orderSlaveSqlSessionFactory")
-    SqlSessionFactory sqlSessionFactory(@Qualifier("orderSlaveDataSource") DataSource dataSource)
-            throws Exception {
-        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(dataSource);
-        return bean.getObject();
-    }
+	@Bean(name = "orderSlaveSqlSessionFactory")
+	SqlSessionFactory sqlSessionFactory(@Qualifier("orderSlaveDataSource") DataSource dataSource) throws Exception {
+		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+		bean.setDataSource(dataSource);
+		return bean.getObject();
+	}
 
-    @Bean(name = "orderSlaveDataSourceTransactionManager")
-    DataSourceTransactionManager dataSourceTransactionManager(@Qualifier("orderSlaveDataSource") DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
+	@Bean(name = "orderSlaveDataSourceTransactionManager")
+	DataSourceTransactionManager dataSourceTransactionManager(@Qualifier("orderSlaveDataSource") DataSource dataSource) {
+		return new DataSourceTransactionManager(dataSource);
+	}
 
-    @Bean(name = "orderSlaveSqlSessionTemplate")
-    SqlSessionTemplate sqlSessionTemplate(@Qualifier("orderSlaveSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
-        return new SqlSessionTemplate(sqlSessionFactory);
-    }
+	@Bean(name = "orderSlaveSqlSessionTemplate")
+	SqlSessionTemplate sqlSessionTemplate(@Qualifier("orderSlaveSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+		return new SqlSessionTemplate(sqlSessionFactory);
+	}
 }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 -Parker.
+ * All rights reserved.
+ */
 package com.frame.annotation;
 
 import java.lang.annotation.Documented;

@@ -1,11 +1,16 @@
+/*
+ * Copyright (c) 2024 -Parker.
+ * All rights reserved.
+ */
 package com.exampleServer.adm.model.enums;
 
 public enum SerialName {
-    ERROR_ID("ERROR_ID");
 
-    private final String name;
+	ERROR_ID("ERROR_ID");
 
-    SerialName(String name) {
-        this.name = name;
-    }
+	private final String name;
+
+	SerialName(String name) {
+		this.name = name;
+	}
 }

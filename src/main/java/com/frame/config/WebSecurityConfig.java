@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 -Parker.
+ * All rights reserved.
+ */
 package com.frame.config;
 
 import java.util.Arrays;
@@ -26,12 +30,19 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class WebSecurityConfig {
 
 	public static final String LOGIN_PATH = "/login";
+
 	public static final String LOGIN_FUNCTION_PATH = "/login/**";
+
 	public static final String LOGIN_API_PATH = "/api/*/login/**";
+
 	public static final String LOGOUT_PATH = "/logout";
+
 	public static final String SSO_LOGIN_PATH = "/sso";
+
 	public static final String DENIED_PATH = "/401";
+
 	public static final String HOME_PATH = "/";
+
 	public static final String[] ANONYMOUS_PATHS = {
 			LOGIN_PATH, SSO_LOGIN_PATH, LOGOUT_PATH, DENIED_PATH, LOGIN_FUNCTION_PATH, LOGIN_API_PATH
 	};
@@ -70,39 +81,27 @@ public class WebSecurityConfig {
 				.cors()
 				.and()
 				.headers(headers -> headers
-						.frameOptions(frame -> frame.sameOrigin())
-				)
+						.frameOptions(frame -> frame.sameOrigin()))
 				.sessionManagement(session -> session
 						.maximumSessions(1)
 						.sessionRegistry(sessionRegistry())
-						.expiredUrl("/?expired")
-				)
+						.expiredUrl("/?expired"))
 				.exceptionHandling(exceptions -> exceptions
 						.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(LOGIN_PATH))
-						.accessDeniedPage(LOGIN_PATH)
-				)
+						.accessDeniedPage(LOGIN_PATH))
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers(ANONYMOUS_PATHS).permitAll()
-						.anyRequest().authenticated()
-				)
+						.anyRequest().authenticated())
 				.formLogin(form -> form
-						.loginPage(LOGIN_PATH).permitAll()
-				)
+						.loginPage(LOGIN_PATH).permitAll())
 				.logout(logout -> logout
 						.logoutUrl(LOGOUT_PATH)
 						.invalidateHttpSession(true)
-						.logoutSuccessUrl("/logoutSuccess")
-				)
+						.logoutSuccessUrl("/logoutSuccess"))
 				.csrf(csrf -> csrf
 						.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-						.ignoringRequestMatchers(LOGIN_API_PATH)
-				)
-				.headers(headers ->
-						headers.xssProtection(
-								xss -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK)
-						).contentSecurityPolicy(
-								cps -> cps.policyDirectives("script-src 'self' .....")
-						));
+						.ignoringRequestMatchers(LOGIN_API_PATH))
+				.headers(headers -> headers.xssProtection(xss -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK)).contentSecurityPolicy(cps -> cps.policyDirectives("script-src 'self' .....")));
 
 		return http.build();
 	}

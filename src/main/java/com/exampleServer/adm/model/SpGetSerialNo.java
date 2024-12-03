@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 -Parker.
+ * All rights reserved.
+ */
 package com.exampleServer.adm.model;
 
 import java.util.List;
@@ -8,7 +12,7 @@ import lombok.Data;
 @Builder
 public class SpGetSerialNo {
 
-    String iSerialCode;
+	String iSerialCode;
 
-    List<String> results;
+	List<String> results;
 }
