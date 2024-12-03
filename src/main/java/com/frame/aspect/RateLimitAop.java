@@ -24,9 +24,9 @@ public class RateLimitAop {
 	@Autowired
 	private HttpServletResponse response;
 
-	private RateLimiter rateLimiter = RateLimiter.create(5.0); //比如说，我这里设置"并发数"为5
+	private RateLimiter rateLimiter = RateLimiter.create(5.0);
 
-	@Pointcut(value = "@annotation(com.frame.web.BaseController)")
+	@Pointcut(value = "@annotation(com.frame.annotation.RateLimitAspect)")
 	public void serviceLimit() {
 
 	}

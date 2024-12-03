@@ -77,11 +77,15 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-				.cors()
-				.and()
-				.headers(headers -> headers
-						.frameOptions(frame -> frame.sameOrigin()))
+		http.cors(cors -> cors.configurationSource(request -> {
+			CorsConfiguration configuration = new CorsConfiguration();
+			configuration.setAllowedOrigins(Arrays.asList("*"));
+			configuration.setAllowedMethods(Arrays.asList("*"));
+			configuration.setAllowedHeaders(Arrays.asList("*"));
+			return configuration;
+		}));
+
+		http.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
 				.sessionManagement(session -> session
 						.maximumSessions(1)
 						.sessionRegistry(sessionRegistry())
@@ -89,19 +93,17 @@ public class WebSecurityConfig {
 				.exceptionHandling(exceptions -> exceptions
 						.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(LOGIN_PATH))
 						.accessDeniedPage(LOGIN_PATH))
-				.authorizeHttpRequests(auth -> auth
-						.requestMatchers(ANONYMOUS_PATHS).permitAll()
-						.anyRequest().authenticated())
-				.formLogin(form -> form
-						.loginPage(LOGIN_PATH).permitAll())
+				.authorizeHttpRequests(auth -> auth.requestMatchers(ANONYMOUS_PATHS).permitAll().anyRequest().authenticated())
+				.formLogin(form -> form.loginPage(LOGIN_PATH).permitAll())
 				.logout(logout -> logout
 						.logoutUrl(LOGOUT_PATH)
 						.invalidateHttpSession(true)
 						.logoutSuccessUrl("/logoutSuccess"))
-				.csrf(csrf -> csrf
-						.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+				.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 						.ignoringRequestMatchers(LOGIN_API_PATH))
-				.headers(headers -> headers.xssProtection(xss -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK)).contentSecurityPolicy(cps -> cps.policyDirectives("script-src 'self' .....")));
+				.headers(headers -> headers
+						.xssProtection(xss -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
+						.contentSecurityPolicy(cps -> cps.policyDirectives("script-src 'self' .....")));
 
 		return http.build();
 	}
