@@ -28,6 +28,9 @@ configurations.all {
 }
 
 dependencies {
+    //spring Base
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
     // for javax.persistence
     implementation 'io.hypersistence:hypersistence-utils-hibernate-63:3.9.0'
@@ -57,7 +60,7 @@ dependencies {
     testImplementation 'junit:junit'
 
     // For war
-    //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation 'org.springframework.boot:spring-boot-starter-tomcat'
 
     // Http Client
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
