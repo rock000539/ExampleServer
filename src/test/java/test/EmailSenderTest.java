@@ -4,8 +4,8 @@
  */
 package test;
 
+import jakarta.mail.internet.MimeMessage;
 import java.util.UUID;
-import javax.mail.internet.MimeMessage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +39,8 @@ public class EmailSenderTest {
 			helper.setTo(recipient_email);
 			helper.setSubject("Meeting Invitation");
 
-			// 设置会议内容
 			String uid = UUID.randomUUID().toString();
-			// 創建iCalendar文件内容
+
 			String meetingContent = "BEGIN:VCALENDAR\n"
 					+ "PRODID:-//Microsoft Corporation//Outlook 16.0 MIMEDIR//EN\n"
 					+ "VERSION:2.0\n"
@@ -74,12 +73,10 @@ public class EmailSenderTest {
 					+ "END:VEVENT\n"
 					+ "END:VCALENDAR";
 
-			// 设置会议内容类型和附件
 			helper.setText(meetingContent, true);
 			helper.getMimeMessage().addHeader("Content-Class", "urn:content-classes:calendarmessage");
 
 			helper.setText(meetingContent);
-			// 发送会议通知
 			mailSender.send(message);
 
 			System.out.println("Meeting invitation sent successfully.");

@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.util.List;
 import javax.net.ssl.SSLContext;
+import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
@@ -59,7 +60,7 @@ public class WebServiceConfig {
 
 	@Bean
 	public ClientHttpRequestFactory clientHttpRequestFactory() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-		return new BufferingClientHttpRequestFactory(new HttpComponentsClientHttpRequestFactory(closeableHttpClient()));
+		return new BufferingClientHttpRequestFactory(new HttpComponentsClientHttpRequestFactory((HttpClient) closeableHttpClient()));
 	}
 
 	@Bean

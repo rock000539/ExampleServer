@@ -2,8 +2,8 @@ package com.frame.config.datasource;
 
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.icatch.jta.UserTransactionManager;
-import javax.transaction.TransactionManager;
-import javax.transaction.UserTransaction;
+import jakarta.transaction.TransactionManager;
+import jakarta.transaction.UserTransaction;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -23,14 +23,14 @@ public class AtomikosTransactionConfig {
     public UserTransaction userTransaction() throws Throwable {
         UserTransactionImp userTransactionImp = new UserTransactionImp();
         userTransactionImp.setTransactionTimeout(10000);
-        return userTransactionImp;
+        return (UserTransaction) userTransactionImp;
     }
 
     @Bean(name = "atomikosTransactionManager")
     public TransactionManager atomikosTransactionManager() throws Throwable {
         UserTransactionManager userTransactionManager = new UserTransactionManager();
         userTransactionManager.setForceShutdown(false);
-        return userTransactionManager;
+        return (TransactionManager) userTransactionManager;
     }
 
     @Bean(name = "jtaTransactionManager")

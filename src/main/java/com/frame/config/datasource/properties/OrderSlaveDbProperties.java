@@ -1,4 +1,4 @@
-package com.shoalter.mms.data.migration.config.datasource.properties;
+package com.frame.config.datasource.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

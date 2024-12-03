@@ -7,9 +7,9 @@ package com.frame.handler;
 import com.bi.base.database.annotation.BaseAutowired;
 import com.bi.base.database.service.BaseService;
 import com.bi.base.database.service.BaseSpService;
-import com.bi.mimosa.adm.model.AdmErrorLog;
-import com.bi.mimosa.adm.model.SpGetSerialNo;
-import com.bi.mimosa.adm.model.enums.SerialName;
+import com.exampleServer.adm.model.AdmErrorLog;
+import com.exampleServer.adm.model.SpGetSerialNo;
+import com.exampleServer.adm.model.enums.SerialName;
 import com.frame.exception.BusinessException;
 import com.frame.model.User;
 import com.frame.util.IpUtil;
@@ -19,6 +19,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.security.access.AccessDeniedException;
@@ -43,11 +44,11 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 	private BaseSpService<SpGetSerialNo> spGetSerialNoBaseSpService;
 
 	@Override
-	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
-		if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
+	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {
+		if (HttpStatus.INTERNAL_SERVER_ERROR.equals(statusCode)) {
 			loggingError(ex);
 		}
-		return super.handleExceptionInternal(ex, body, headers, status, request);
+		return super.handleExceptionInternal(ex, body, headers, statusCode, request);
 	}
 
 	@org.springframework.web.bind.annotation.ExceptionHandler({Exception.class})
@@ -61,15 +62,12 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 	private void loggingError(Exception e) {
 		User user = UserUtil.getUser();
 		SpGetSerialNo spGetSerialNo = SpGetSerialNo.builder().iSerialCode(SerialName.ERROR_ID.name()).build();
-		String errorId = spGetSerialNoBaseSpService.execute(spGetSerialNo).getNumbers().get(0);
+		String errorId = spGetSerialNoBaseSpService.execute(spGetSerialNo).getResults().get(0);
 		AdmErrorLog admErrorLog = new AdmErrorLog();
 		admErrorLog.setErrorId(errorId);
 		admErrorLog.setErrorMessage(e.getMessage());
 		admErrorLog.setErrorBody(ExceptionUtils.getStackTrace(e));
-		if (httpServletRequest != null) {
-			admErrorLog.setClientIp(IpUtil.getClientIp(httpServletRequest));
-		}
-		admErrorLog.setHostIp(IpUtil.getHostIp());
+		admErrorLog.setHostIp(IpUtil.getClientIp());
 		if (user != null) {
 			admErrorLog.setLoginId(user.getLoginId());
 		}

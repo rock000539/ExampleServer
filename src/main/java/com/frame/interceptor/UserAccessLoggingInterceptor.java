@@ -8,14 +8,16 @@ import com.bi.base.database.annotation.BaseAutowired;
 import com.bi.base.database.dao.BaseDao;
 import com.bi.base.web.BaseController;
 import com.exampleServer.adm.model.AdmUserAccessLogs;
+import com.frame.model.StatusCaptureResponseWrapper;
 import com.frame.model.User;
 import com.frame.util.IpUtil;
 import com.frame.util.UserUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Date;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -35,18 +37,21 @@ public class UserAccessLoggingInterceptor implements HandlerInterceptor {
 	private BaseDao<AdmUserAccessLogs> admUserAccessLogsBaseDao;
 
 	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) {
 		if (HandlerMethod.class.equals(handler.getClass())) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
 			Class<?> clazz = handlerMethod.getBeanType().getSuperclass();
-			if (clazz.equals(BaseController.class) || clazz.equals(BaseController.class)) {
-				String path = request.getServletPath();
-				int status = response.getStatus();
+			if (response instanceof StatusCaptureResponseWrapper) {
+				StatusCaptureResponseWrapper wrappedResponse = (StatusCaptureResponseWrapper) response;
 
-				if (status == 200
-						&& StringUtils.isNoneBlank(path)
-						&& !ArrayUtils.contains(ignorePath, path)) {
-					insertAccessLog(path, request, response);
+				if (clazz.equals(BaseController.class) || clazz.equals(BaseController.class)) {
+					String path = request.getServletPath();
+					int status = wrappedResponse.getStatus();
+					if (status == 200
+							&& StringUtils.isNoneBlank(path)
+							&& !ArrayUtils.contains(ignorePath, path)) {
+						insertAccessLog(path, request, response);
+					}
 				}
 			}
 		}

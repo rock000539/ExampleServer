@@ -1,19 +1,17 @@
 package com.frame.config.datasource;
 
+import com.atomikos.jdbc.AtomikosDataSourceBean;
+import com.frame.config.datasource.properties.OrderSlaveDbProperties;
 import com.mysql.cj.jdbc.MysqlXADataSource;
-import com.shoalter.mms.data.migration.config.datasource.properties.orderSlaveDbProperties;
 import java.sql.SQLException;
+import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-
-import javax.sql.DataSource;
 
 /**
  * @author Parker Huagn
@@ -23,7 +21,7 @@ import javax.sql.DataSource;
 public class OrderSlaveDataSourceConfig {
 
     @Bean("orderSlaveDataSource")
-    DataSource dataSource(orderSlaveDbProperties orderSlaveDbProps) throws SQLException {
+    DataSource dataSource(OrderSlaveDbProperties orderSlaveDbProps) throws SQLException {
         MysqlXADataSource mysqlXADataSource = new MysqlXADataSource();
         mysqlXADataSource.setUrl(orderSlaveDbProps.getJdbcUrl());
         mysqlXADataSource.setPassword(orderSlaveDbProps.getPassWord());

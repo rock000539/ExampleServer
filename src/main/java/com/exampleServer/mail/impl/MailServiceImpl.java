@@ -6,8 +6,8 @@ package com.exampleServer.mail.impl;
 
 import com.bi.base.model.enums.YesNo;
 import com.exampleServer.mail.MailService;
+import jakarta.mail.internet.MimeMessage;
 import java.util.List;
-import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;

@@ -6,11 +6,10 @@ package com.frame.util;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -36,23 +35,30 @@ public final class IpUtil {
 
 	public static String getClientIp() {
 		try {
-			HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes()))
-					.getRequest();
-			String ip = null;
-			for (String headerIp : HEADER_IP_LIST) {
-				ip = request.getHeader(headerIp);
-				if (StringUtils.isNotBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
-					break;
+			// 從 RequestContextHolder 獲取當前請求
+			ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+			if (attributes == null) {
+				return null; // 確保在非 Web 環境中不崩潰
+			}
+			HttpServletRequest request = attributes.getRequest();
+
+			// 遍歷可能的頭部來提取客戶端 IP
+			for (String header : HEADER_IP_LIST) {
+				String ip = request.getHeader(header);
+				if (ip != null && !ip.isEmpty() && !"unknown".equalsIgnoreCase(ip)) {
+					// 若包含多個 IP 地址，取第一個
+					return ip.split(",")[0].trim();
 				}
 			}
-			if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
-				ip = request.getRemoteAddr();
-				if ("0:0:0:0:0:0:0:1".equals(ip)) {
-					ip = "127.0.0.1";
-				}
+
+			// 如果沒有從頭部獲得 IP，使用 getRemoteAddr
+			String ip = request.getRemoteAddr();
+			if ("0:0:0:0:0:0:0:1".equals(ip)) {
+				ip = "127.0.0.1"; // 處理 IPv6 本地地址
 			}
 			return ip;
 		} catch (Exception e) {
+			// 捕獲異常並返回 null
 			return null;
 		}
 	}

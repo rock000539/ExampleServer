@@ -4,6 +4,7 @@
  */
 package com.frame.handler;
 
+import jakarta.validation.constraints.NotNull;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -149,7 +150,7 @@ public class CsvUploadHandler<E> {
 				continue;
 			}
 
-			boolean isNotNull = field.isAnnotationPresent(javax.validation.constraints.NotNull.class);
+			boolean isNotNull = field.isAnnotationPresent(NotNull.class);
 			Class<?> type = field.getType();
 
 			if (type == double.class || type == Double.class) {
