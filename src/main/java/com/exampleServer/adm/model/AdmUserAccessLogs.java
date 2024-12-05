@@ -2,7 +2,7 @@
  * Copyright (c) 2023 -Parker.
  * All rights reserved.
  */
-package com.exampleServer.adm;
+package com.exampleServer.adm.model;
 
 import com.bi.base.database.annotation.BaseColumn;
 import com.bi.base.database.annotation.BaseId;

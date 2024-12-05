@@ -7,7 +7,7 @@ package com.frame.interceptor;
 import com.bi.base.database.annotation.BaseAutowired;
 import com.bi.base.database.dao.BaseDao;
 import com.bi.base.web.BaseController;
-import com.exampleServer.adm.AdmUserAccessLogs;
+import com.exampleServer.adm.model.AdmUserAccessLogs;
 import com.frame.model.StatusCaptureResponseWrapper;
 import com.frame.model.User;
 import com.frame.util.IpUtil;
