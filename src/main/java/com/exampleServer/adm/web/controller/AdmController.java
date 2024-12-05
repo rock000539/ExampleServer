@@ -8,6 +8,7 @@ import com.bi.base.web.BaseApi;
 import com.exampleServer.adm.model.AdmUser;
 import com.exampleServer.adm.service.AdmService;
 import com.frame.annotation.RateLimitAspect;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,5 +31,10 @@ public class AdmController extends BaseApi {
   @GetMapping("/admUser")
   public AdmUser getAdmUserByCode(@RequestParam String admUserCode) {
     return admService.getAdmUserByCode(admUserCode);
+  }
+
+  @GetMapping("/admUsers")
+  public List<AdmUser> getAdmUsersByName(@RequestParam String admUserName) {
+    return admService.getAdmUsersByName(admUserName);
   }
 }
