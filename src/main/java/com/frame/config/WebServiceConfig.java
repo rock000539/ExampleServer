@@ -5,25 +5,24 @@
 package com.frame.config;
 
 import java.security.KeyManagementException;
+import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.util.List;
-import javax.net.ssl.SSLContext;
-import org.apache.hc.client5.http.classic.HttpClient;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.config.Registry;
-import org.apache.http.config.RegistryBuilder;
-import org.apache.http.conn.socket.ConnectionSocketFactory;
-import org.apache.http.conn.socket.PlainConnectionSocketFactory;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.LaxRedirectStrategy;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.ssl.SSLContexts;
-import org.apache.http.ssl.TrustStrategy;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.LaxRedirectStrategy;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.client5.http.socket.ConnectionSocketFactory;
+import org.apache.hc.client5.http.socket.PlainConnectionSocketFactory;
+import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactory;
+import org.apache.hc.core5.http.config.Registry;
+import org.apache.hc.core5.http.config.RegistryBuilder;
+import org.apache.hc.core5.ssl.SSLContextBuilder;
+import org.apache.hc.core5.ssl.TrustStrategy;
+import org.apache.hc.core5.util.Timeout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -60,28 +59,38 @@ public class WebServiceConfig {
 
 	@Bean
 	public ClientHttpRequestFactory clientHttpRequestFactory() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-		return new BufferingClientHttpRequestFactory(new HttpComponentsClientHttpRequestFactory((HttpClient) closeableHttpClient()));
+		return new BufferingClientHttpRequestFactory(new HttpComponentsClientHttpRequestFactory(closeableHttpClient()));
 	}
 
 	@Bean
 	public CloseableHttpClient closeableHttpClient() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+		// Accept all certificates
 		TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
-		SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
-		SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext, new String[]{"TLSv1.2", "SSLv3"}, null, NoopHostnameVerifier.INSTANCE);
-		Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory> create()
-				.register("http", PlainConnectionSocketFactory.getSocketFactory())
-				.register("https", csf)
+        KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+		var sslContext = SSLContextBuilder.create().loadTrustMaterial(trustStore, acceptingTrustStrategy).build();
+
+		// SSL Socket Factory
+		var sslSocketFactory = new SSLConnectionSocketFactory(sslContext, new String[]{"TLSv1.2", "TLSv1.3"}, null, (hostname, session) -> true);
+
+		// Connection Manager
+		Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
+				.register("http", PlainConnectionSocketFactory.INSTANCE)
+				.register("https", sslSocketFactory)
 				.build();
-		PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(registry);
+		var connectionManager = new PoolingHttpClientConnectionManager(registry);
 		connectionManager.setMaxTotal(50);
 		connectionManager.setDefaultMaxPerRoute(10);
-		RequestConfig config = RequestConfig.custom().setConnectTimeout(connectTimeout).build();
-		return HttpClientBuilder.create()
-				.setRedirectStrategy(new LaxRedirectStrategy())
-				.setConnectionManager(connectionManager)
-				.setSSLSocketFactory(csf)
-				.setDefaultRequestConfig(config)
-				.setConnectionManagerShared(true)
+
+		// Request Config
+		var requestConfig = RequestConfig.custom()
+				.setConnectTimeout(Timeout.ofSeconds(10))
 				.build();
+
+		// Build and return HttpClient
+      return HttpClients.custom()
+              .setRedirectStrategy(new LaxRedirectStrategy())
+              .setConnectionManager(connectionManager)
+              .setDefaultRequestConfig(requestConfig)
+              .build();
 	}
 }

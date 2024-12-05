@@ -14,9 +14,11 @@ import jcifs.CIFSContext;
 import jcifs.smb.SmbFile;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 
 @Slf4j
+@ConditionalOnBean(CIFSContext.class)
 @Service
 public class SmbService {
 

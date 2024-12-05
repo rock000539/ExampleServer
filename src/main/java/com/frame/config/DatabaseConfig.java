@@ -57,7 +57,7 @@ public class DatabaseConfig {
 
 	@Bean
 	@Primary
-	public DataSource dataSource() {
+	public DataSource primaryDataSource() {
 		return getDataSource();
 	}
 

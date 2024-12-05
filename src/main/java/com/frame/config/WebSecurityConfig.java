@@ -44,7 +44,12 @@ public class WebSecurityConfig {
 	public static final String HOME_PATH = "/";
 
 	public static final String[] ANONYMOUS_PATHS = {
-			LOGIN_PATH, SSO_LOGIN_PATH, LOGOUT_PATH, DENIED_PATH, LOGIN_FUNCTION_PATH, LOGIN_API_PATH
+			LOGIN_PATH, SSO_LOGIN_PATH, LOGOUT_PATH, DENIED_PATH, LOGIN_FUNCTION_PATH, LOGIN_API_PATH ,
+			"/swagger-ui.html",
+			"/swagger-ui/*",
+			"/v3/api-docs/*",
+			"/swagger-resources/*",
+			"/*/**"
 	};
 
 	@Value("${security.domain.enabled:false}")
@@ -103,7 +108,7 @@ public class WebSecurityConfig {
 						.ignoringRequestMatchers(LOGIN_API_PATH))
 				.headers(headers -> headers
 						.xssProtection(xss -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
-						.contentSecurityPolicy(cps -> cps.policyDirectives("script-src 'self' .....")));
+						.contentSecurityPolicy(cps -> cps.policyDirectives("script-src 'self'")));
 
 		return http.build();
 	}
