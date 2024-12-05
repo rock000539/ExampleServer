@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.impl;
@@ -21,14 +21,14 @@ import com.bi.base.database.SqlTemplate;
 @ConditionalOnSingleCandidate(MySqlSqlTemplate.class)
 @Component
 public class MySqlSqlTemplate extends SqlTemplate {
-	
+
 	private final MessageFormat topFormat = new MessageFormat("{0} LIMIT {1}");
 
 	@Override
 	public String formatTopSql(String sql, int top) {
-		return topFormat.format(new Object[] {sql, top});
+		return topFormat.format(new Object[]{sql, top});
 	}
-	
+
 	@Override
 	public String formatPaginateSql(String sql, Pageable pageable) {
 		int startRow = pageable.getPageNumber() * pageable.getPageSize();
@@ -36,7 +36,7 @@ public class MySqlSqlTemplate extends SqlTemplate {
 		String page = String.valueOf(startRow).concat(", ").concat(String.valueOf(size));
 		sql = formatSelectWrapperSql(sql);
 		sql = formatSortSql(sql, pageable.getSort());
-		return topFormat.format(new Object[] {sql, page});
+		return topFormat.format(new Object[]{sql, page});
 	}
 
 }

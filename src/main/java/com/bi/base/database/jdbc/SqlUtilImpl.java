@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.jdbc;
@@ -166,7 +166,8 @@ public class SqlUtilImpl implements SqlUtil {
 
 	protected <T> T requiredSingleResult(Collection<T> results) {
 		int size = results != null ? results.size() : 0;
-		if (size > 1) throw new IncorrectResultSizeDataAccessException(1, size);
+		if (size > 1)
+			throw new IncorrectResultSizeDataAccessException(1, size);
 		return size == 0 ? null : results.iterator().next();
 	}
 
@@ -263,7 +264,7 @@ public class SqlUtilImpl implements SqlUtil {
 		} else {
 			return pageable;
 		}
-    }
+	}
 
 	@Override
 	public <T> List<T> find(String sql, Class<T> clazz, Object... params) {
@@ -451,7 +452,8 @@ public class SqlUtilImpl implements SqlUtil {
 	@Override
 	public Map<String, Object> executeSp(String spName, @Nullable String schemaName, @Nullable String catalogName, Map<String, ?> params) {
 		SimpleJdbcCall simpleJdbcCall = getSimpleJdbcCallSp(spName, schemaName, catalogName);
-		if (showSqlArg) log.info("Execute SP: params: {}", params.toString());
+		if (showSqlArg)
+			log.info("Execute SP: params: {}", params.toString());
 		return executeSp(simpleJdbcCall, params);
 	}
 
@@ -483,7 +485,8 @@ public class SqlUtilImpl implements SqlUtil {
 				simpleJdbcCall.returningResultSet(entry.getKey(), new BaseBeanPropertyRowMapper<>(clazz));
 			}
 		});
-		if (showSqlArg) log.info("Execute SP: params: {}", params.toString());
+		if (showSqlArg)
+			log.info("Execute SP: params: {}", params.toString());
 		return executeSp(simpleJdbcCall, params);
 	}
 
@@ -518,7 +521,8 @@ public class SqlUtilImpl implements SqlUtil {
 		simpleJdbcCall.setSchemaName(schema);
 		simpleJdbcCall.setCatalogName(catalog);
 		setDefaultSimpleJdbcCall(simpleJdbcCall);
-		if (showSql) log.info("Execute SP: name: {}, schema: {}, catalog: {}", spName, simpleJdbcCall.getSchemaName(), simpleJdbcCall.getCatalogName());
+		if (showSql)
+			log.info("Execute SP: name: {}, schema: {}, catalog: {}", spName, simpleJdbcCall.getSchemaName(), simpleJdbcCall.getCatalogName());
 		return simpleJdbcCall;
 	}
 
@@ -578,7 +582,8 @@ public class SqlUtilImpl implements SqlUtil {
 	 * @param sql SQL to execute
 	 */
 	private void logSql(String sql) {
-		if (showSql) log.info(sql);
+		if (showSql)
+			log.info(sql);
 	}
 
 	/**
@@ -589,7 +594,8 @@ public class SqlUtilImpl implements SqlUtil {
 	 */
 	private void logSql(String sql, Object... params) {
 		logSql(sql);
-		if (showSqlArg && ArrayUtils.isNotEmpty(params)) log.info(Arrays.asList(params).toString());
+		if (showSqlArg && ArrayUtils.isNotEmpty(params))
+			log.info(Arrays.asList(params).toString());
 	}
 
 	/**
@@ -600,7 +606,8 @@ public class SqlUtilImpl implements SqlUtil {
 	 */
 	private void logSql(String sql, List<Object[]> params) {
 		logSql(sql);
-		if (showSqlArg && !CollectionUtils.isEmpty(params)) log.info(params.stream().map(Arrays::asList).collect(Collectors.toList()).toString());
+		if (showSqlArg && !CollectionUtils.isEmpty(params))
+			log.info(params.stream().map(Arrays::asList).collect(Collectors.toList()).toString());
 	}
 
 	/**

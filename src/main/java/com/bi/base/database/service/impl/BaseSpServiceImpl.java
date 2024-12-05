@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 - SoftBI Corporation Limited.
+ * Copyright (c) 2022 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.service.impl;
@@ -18,8 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 @NoArgsConstructor
 public class BaseSpServiceImpl<M extends BaseSpDao<T>, T> implements BaseSpService<T> {
 
-    @Autowired
-    protected M baseSpDao;
+	@Autowired
+	protected M baseSpDao;
 
 	/**
 	 * For {@link com.bi.base.database.annotation.BaseAutowired} that inject spring bean manually.
@@ -27,9 +27,8 @@ public class BaseSpServiceImpl<M extends BaseSpDao<T>, T> implements BaseSpServi
 	 * @param baseSpDao data access object
 	 */
 	public BaseSpServiceImpl(M baseSpDao) {
-    	this.baseSpDao = baseSpDao;
+		this.baseSpDao = baseSpDao;
 	}
-
 
 	@Override
 	public T execute() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.aspect;
@@ -47,7 +47,7 @@ public class TargetDataSourceAspect {
 	 * @throws Throwable
 	 */
 	@Around("execution(* com.bi.base.database.dao.impl.SqlDaoImpl+.*(..))")
-    public Object around(ProceedingJoinPoint pjp) throws Throwable {
+	public Object around(ProceedingJoinPoint pjp) throws Throwable {
 		try {
 			if (dynamicDataSource.getSize() > 1) {
 				MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
@@ -76,5 +76,5 @@ public class TargetDataSourceAspect {
 		} finally {
 			DynamicDataSourceHolder.clearDataSourceKey();
 		}
-    }
+	}
 }

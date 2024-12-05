@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 - SoftBI Corporation Limited.
+ * Copyright (c) 2022 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.model;
@@ -11,7 +11,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.util.Set;
-
 
 /**
  * Transfer entity to stored procedure entity.<br>

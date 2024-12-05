@@ -1,8 +1,7 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
-
 package com.bi.base.database.annotation;
 
 import java.lang.annotation.Documented;
@@ -25,11 +24,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface BaseAutowired {
 
-    /**
-     * Datasource name for ORM to access.
-     *
-     * @since 1.4.0
-     * @return datasource name
-     */
-    String dataSourceName() default "";
+	/**
+	 * Datasource name for ORM to access.
+	 *
+	 * @since 1.4.0
+	 * @return datasource name
+	 */
+	String dataSourceName() default "";
 }

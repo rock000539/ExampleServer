@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.datasource;
@@ -60,38 +60,38 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 	 *
 	 * @return datasource key
 	 */
-    @Override
-    protected Object determineCurrentLookupKey() {
-    	String dataSourceKey = DynamicDataSourceHolder.getDataSourceKey();
-    	log.debug("Get dynamic dataSource key: {}", dataSourceKey);
-    	return dataSourceKey;
-    }
+	@Override
+	protected Object determineCurrentLookupKey() {
+		String dataSourceKey = DynamicDataSourceHolder.getDataSourceKey();
+		log.debug("Get dynamic dataSource key: {}", dataSourceKey);
+		return dataSourceKey;
+	}
 
-    /**
-     * Current datasource.
-     *
-     * @return current thread datasource
-     */
-    public DataSource getDataSource() {
+	/**
+	 * Current datasource.
+	 *
+	 * @return current thread datasource
+	 */
+	public DataSource getDataSource() {
 		return determineTargetDataSource();
 	}
 
-    /**
-     * Current datasource with spring's {@link org.springframework.jdbc.core.JdbcTemplate}.
-     *
-     * @return current thread {@link org.springframework.jdbc.core.JdbcTemplate}
-     */
-    public JdbcTemplate getJdbcTemplate() {
+	/**
+	 * Current datasource with spring's {@link org.springframework.jdbc.core.JdbcTemplate}.
+	 *
+	 * @return current thread {@link org.springframework.jdbc.core.JdbcTemplate}
+	 */
+	public JdbcTemplate getJdbcTemplate() {
 		return determineCurrentLookupKey() != null ? targetJdbcTemplate.get(determineCurrentLookupKey()) : defaultJdbcTemplate;
 	}
 
-    /**
-     * Current datasource with spring's {@link org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate}.
-     *
-     * @return current thread {@link org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate}
-     */
-    public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
+	/**
+	 * Current datasource with spring's {@link org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate}.
+	 *
+	 * @return current thread {@link org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate}
+	 */
+	public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
 		return determineCurrentLookupKey() != null ? targetNamedParameterJdbcTemplate.get(determineCurrentLookupKey()) : defaultNamedParameterJdbcTemplate;
-    }
+	}
 
 }

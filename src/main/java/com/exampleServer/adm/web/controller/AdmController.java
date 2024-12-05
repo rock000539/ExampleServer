@@ -20,21 +20,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/adm")
 public class AdmController extends BaseApi {
 
-  @Autowired private AdmService admService;
+	@Autowired
+	private AdmService admService;
 
-  @RateLimitAspect
-  @PostMapping("/rateLimitTest")
-  public String handleRefundRequest() {
-    return "Success!!";
-  }
+	@RateLimitAspect
+	@PostMapping("/rateLimitTest")
+	public String handleRefundRequest() {
+		return "Success!!";
+	}
 
-  @GetMapping("/admUser")
-  public AdmUser getAdmUserByCode(@RequestParam String admUserCode) {
-    return admService.getAdmUserByCode(admUserCode);
-  }
+	@GetMapping("/admUser")
+	public AdmUser getAdmUserByCode(@RequestParam String admUserCode) {
+		return admService.getAdmUserByCode(admUserCode);
+	}
 
-  @GetMapping("/admUsers")
-  public List<AdmUser> getAdmUsersByName(@RequestParam String admUserName) {
-    return admService.getAdmUsersByName(admUserName);
-  }
+	@GetMapping("/admUsers")
+	public List<AdmUser> getAdmUsersByName(@RequestParam String admUserName) {
+		return admService.getAdmUsersByName(admUserName);
+	}
 }

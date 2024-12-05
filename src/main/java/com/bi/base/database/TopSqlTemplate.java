@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database;
@@ -12,13 +12,13 @@ package com.bi.base.database;
  */
 public interface TopSqlTemplate {
 
-    /**
-     * Format sql to fetch top row.
-     *
-     * @param sql SQL query to execute
-     * @param top fetch size
-     * @return formatted SQL
-     */
-    String formatTopSql(String sql, int top);
+	/**
+	 * Format sql to fetch top row.
+	 *
+	 * @param sql SQL query to execute
+	 * @param top fetch size
+	 * @return formatted SQL
+	 */
+	String formatTopSql(String sql, int top);
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.config;
@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @EnableTransactionManagement
 public class TransactionConfig {
 
-	@ConditionalOnMissingBean({ PlatformTransactionManager.class })
+	@ConditionalOnMissingBean({PlatformTransactionManager.class})
 	@Bean
 	public DataSourceTransactionManager transaction(DataSource dataSource) {
 		log.debug("Load default transaction");

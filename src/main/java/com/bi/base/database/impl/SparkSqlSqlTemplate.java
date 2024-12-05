@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.impl;
@@ -26,7 +26,7 @@ public class SparkSqlSqlTemplate extends SqlTemplate {
 
 	@Override
 	public String formatTopSql(String sql, int top) {
-		return topFormat.format(new Object[] {sql, top});
+		return topFormat.format(new Object[]{sql, top});
 	}
 
 	@Deprecated

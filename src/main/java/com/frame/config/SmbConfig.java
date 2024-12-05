@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Slf4j
-@ConditionalOnProperty(value="smb.server.enabled", havingValue = "true")
+@ConditionalOnProperty(value = "smb.server.enabled", havingValue = "true")
 @Configuration
 public class SmbConfig {
 
@@ -29,7 +29,7 @@ public class SmbConfig {
 
 	@Bean
 	public CIFSContext cifsContext() {
-		try{
+		try {
 			NtlmPasswordAuthenticator auth = new NtlmPasswordAuthenticator(smbServerUrl, smbServerUserName, smbServerPassword);
 			CIFSContext baseContext = SingletonContext.getInstance();
 			return baseContext.withCredentials(auth);

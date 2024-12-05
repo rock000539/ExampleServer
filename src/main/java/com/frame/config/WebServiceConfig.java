@@ -66,14 +66,14 @@ public class WebServiceConfig {
 	public CloseableHttpClient closeableHttpClient() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
 		// Accept all certificates
 		TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
-        KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+		KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
 		var sslContext = SSLContextBuilder.create().loadTrustMaterial(trustStore, acceptingTrustStrategy).build();
 
 		// SSL Socket Factory
 		var sslSocketFactory = new SSLConnectionSocketFactory(sslContext, new String[]{"TLSv1.2", "TLSv1.3"}, null, (hostname, session) -> true);
 
 		// Connection Manager
-		Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
+		Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory> create()
 				.register("http", PlainConnectionSocketFactory.INSTANCE)
 				.register("https", sslSocketFactory)
 				.build();
@@ -87,10 +87,10 @@ public class WebServiceConfig {
 				.build();
 
 		// Build and return HttpClient
-      return HttpClients.custom()
-              .setRedirectStrategy(new LaxRedirectStrategy())
-              .setConnectionManager(connectionManager)
-              .setDefaultRequestConfig(requestConfig)
-              .build();
+		return HttpClients.custom()
+				.setRedirectStrategy(new LaxRedirectStrategy())
+				.setConnectionManager(connectionManager)
+				.setDefaultRequestConfig(requestConfig)
+				.build();
 	}
 }

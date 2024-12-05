@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.config;
@@ -48,16 +48,16 @@ public class WebMvcConfig implements WebMvcConfigurer, ApplicationContextAware {
 		return builder -> builder.timeZone(TimeZone.getDefault());
 	}
 
-    @Override
+	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-    	this.applicationContext = applicationContext;
+		this.applicationContext = applicationContext;
 	}
 
-    /**
-     * Set default page mapping.
-     *
-     * @param registry register
-     */
+	/**
+	 * Set default page mapping.
+	 *
+	 * @param registry register
+	 */
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("forward:/index.html");

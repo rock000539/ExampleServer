@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.dao.impl;
@@ -200,7 +200,8 @@ public class BaseDaoImpl<T> extends SqlDaoImpl implements BaseDao<T> {
 	}
 
 	protected int insert(T entity, @Nullable KeyHolder generatedKeyHolder) {
-		if (tableEntity.hasGenerator()) EntityUtil.setGeneratorFieldValue(entity);
+		if (tableEntity.hasGenerator())
+			EntityUtil.setGeneratorFieldValue(entity);
 
 		Map<String, SqlParameterValue> params = EntityUtil.getColumnsValue(entity, tableEntity.getAutoIncrementFieldName()); // Exclude auto increment.
 		String sql = sqlTemplateProxy.getSqlTemplate()
@@ -226,7 +227,8 @@ public class BaseDaoImpl<T> extends SqlDaoImpl implements BaseDao<T> {
 				.formatInsertSql(tableEntity.getTableName(), tableEntity.getColumnsSql(), tableEntity.getParamsSql());
 
 		entities.forEach(entity -> {
-			if (tableEntity.hasGenerator()) EntityUtil.setGeneratorFieldValue(entity);
+			if (tableEntity.hasGenerator())
+				EntityUtil.setGeneratorFieldValue(entity);
 			params.add(EntityUtil.getColumnsValue(entity, tableEntity.getAutoIncrementFieldName())); // Exclude auto increment.
 		});
 

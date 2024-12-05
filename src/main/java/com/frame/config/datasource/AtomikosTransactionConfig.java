@@ -21,7 +21,7 @@ import org.springframework.transaction.jta.JtaTransactionManager;
  * @since 1.0.0
  */
 @Configuration
-@ConditionalOnProperty(name = { "spring.datasource.enabled", "spring.jta.atomikos.enabled" }, havingValue = "true")
+@ConditionalOnProperty(name = {"spring.datasource.enabled", "spring.jta.atomikos.enabled"}, havingValue = "true")
 @EnableTransactionManagement
 public class AtomikosTransactionConfig {
 

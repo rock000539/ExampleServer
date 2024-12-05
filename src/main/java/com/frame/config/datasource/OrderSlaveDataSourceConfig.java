@@ -23,7 +23,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  * @since 1.0.0
  */
 @Configuration
-@ConditionalOnProperty(name = { "spring.datasource.enabled", "spring.jta.atomikos.enabled" }, havingValue = "true")
+@ConditionalOnProperty(name = {"spring.datasource.enabled", "spring.jta.atomikos.enabled"}, havingValue = "true")
 public class OrderSlaveDataSourceConfig {
 
 	@Bean("orderSlaveDataSource")

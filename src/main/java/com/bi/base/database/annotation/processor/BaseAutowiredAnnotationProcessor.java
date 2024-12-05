@@ -1,8 +1,7 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
-
 package com.bi.base.database.annotation.processor;
 
 import org.springframework.beans.BeansException;
@@ -16,29 +15,29 @@ import org.springframework.util.ReflectionUtils;
 /**
  * Provides to set {@link com.bi.base.database.annotation.BaseAutowired} field
  * and registered association bean.
- *  
+ * 
  * @author Allen Lin
  * @since 1.3.0
  */
 @Component
 public class BaseAutowiredAnnotationProcessor implements BeanPostProcessor {
 
-    @Autowired
-    private ConfigurableListableBeanFactory configurableBeanFactory;
+	@Autowired
+	private ConfigurableListableBeanFactory configurableBeanFactory;
 
-    @Autowired
-    private Environment environment;
+	@Autowired
+	private Environment environment;
 
-    @Override
-    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        Class<?> managedBeanClass = bean.getClass();
-        ReflectionUtils.FieldCallback fieldCallback = new BaseAutowiredFieldCallback(configurableBeanFactory, environment, bean);
-        ReflectionUtils.doWithFields(managedBeanClass, fieldCallback);
-        return bean;
-    }
+	@Override
+	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+		Class<?> managedBeanClass = bean.getClass();
+		ReflectionUtils.FieldCallback fieldCallback = new BaseAutowiredFieldCallback(configurableBeanFactory, environment, bean);
+		ReflectionUtils.doWithFields(managedBeanClass, fieldCallback);
+		return bean;
+	}
 
-    @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        return bean;
-    }
+	@Override
+	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+		return bean;
+	}
 }

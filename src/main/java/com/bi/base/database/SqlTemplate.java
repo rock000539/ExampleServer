@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database;
@@ -19,23 +19,23 @@ import org.springframework.data.domain.Sort.Order;
  * @since 1.0.0
  */
 public abstract class SqlTemplate implements TopSqlTemplate, PaginateSqlTemplate {
-	
+
 	protected final MessageFormat selectBaseFormat = new MessageFormat("SELECT {1} FROM {0} {2}");
-	
+
 	protected final MessageFormat selectWrapperFormat = new MessageFormat("SELECT T.* FROM ({0}) T");
-	
+
 	private final MessageFormat countFormat = new MessageFormat("SELECT COUNT(1) FROM {0} {1}");
-	
+
 	private final MessageFormat countWrapperFormat = new MessageFormat("SELECT COUNT(1) FROM ({0}) C");
-	
+
 	private final MessageFormat sortFormat = new MessageFormat("{0} ORDER BY {1}");
-	
+
 	private final MessageFormat insertFormat = new MessageFormat("INSERT INTO {0} ({1}) VALUES ({2})");
-	
+
 	private final MessageFormat updateFormat = new MessageFormat("UPDATE {0} SET {1} {2}");
-	
+
 	private final MessageFormat deleteFormat = new MessageFormat("DELETE FROM {0} {1}");
-	
+
 	/**
 	 * Format simple query sql by information (SELECT {columns} FROM {table} {other}) {@link #selectBaseFormat}
 	 * 
@@ -45,9 +45,9 @@ public abstract class SqlTemplate implements TopSqlTemplate, PaginateSqlTemplate
 	 * @return formatted SQL
 	 */
 	public String formatSelectBaseSql(String table, String columns, String other) {
-    	return selectBaseFormat.format(new Object[] {table, columns, other});
+		return selectBaseFormat.format(new Object[]{table, columns, other});
 	}
-	
+
 	/**
 	 * Wrap query sql (SELECT T.* FROM ({sql}) T) {@link #selectWrapperFormat}
 	 * 
@@ -55,7 +55,7 @@ public abstract class SqlTemplate implements TopSqlTemplate, PaginateSqlTemplate
 	 * @return formatted SQL
 	 */
 	public String formatSelectWrapperSql(String sql) {
-		return selectWrapperFormat.format(new Object[] {sql});
+		return selectWrapperFormat.format(new Object[]{sql});
 	}
 
 	/**
@@ -66,9 +66,9 @@ public abstract class SqlTemplate implements TopSqlTemplate, PaginateSqlTemplate
 	 * @return formatted SQL
 	 */
 	public String formatCountSql(String table, String other) {
-		return countFormat.format(new Object[] {table, other});
+		return countFormat.format(new Object[]{table, other});
 	}
-	
+
 	/**
 	 * Wrap count sql (SELECT COUNT(1) FROM ({sql}) C) {@link #countWrapperFormat}
 	 * 
@@ -76,9 +76,9 @@ public abstract class SqlTemplate implements TopSqlTemplate, PaginateSqlTemplate
 	 * @return formatted SQL
 	 */
 	public String formatCountWrapperSql(String sql) {
-		return countWrapperFormat.format(new Object[] {sql});
+		return countWrapperFormat.format(new Object[]{sql});
 	}
-	
+
 	/**
 	 * Wrap sort sql ({sql} ORDER BY {sort}) {@link #sortFormat}
 	 * 
@@ -91,9 +91,9 @@ public abstract class SqlTemplate implements TopSqlTemplate, PaginateSqlTemplate
 		for (Order order : sort) {
 			orders.add(order.getProperty().concat(" ").concat(order.getDirection().name()));
 		}
-		return sort.isSorted() ? sortFormat.format(new Object[] {sql, StringUtils.join(orders, ", ")}) : sql;
+		return sort.isSorted() ? sortFormat.format(new Object[]{sql, StringUtils.join(orders, ", ")}) : sql;
 	}
-	
+
 	/**
 	 * Format insert sql by information (INSERT INTO {table} ({columns}) VALUES ({values})) {@link #insertFormat}
 	 * 
@@ -103,9 +103,9 @@ public abstract class SqlTemplate implements TopSqlTemplate, PaginateSqlTemplate
 	 * @return formatted SQL
 	 */
 	public String formatInsertSql(String table, String columns, String values) {
-    	return insertFormat.format(new Object[] {table, columns, values});
+		return insertFormat.format(new Object[]{table, columns, values});
 	}
-	
+
 	/**
 	 * Format update sql by information (UPDATE {table} SET {values} {other}) {@link #updateFormat}
 	 * 
@@ -115,7 +115,7 @@ public abstract class SqlTemplate implements TopSqlTemplate, PaginateSqlTemplate
 	 * @return formatted SQL
 	 */
 	public String formatUpdateSql(String table, String values, String other) {
-		return updateFormat.format(new Object[] {table, values, other});
+		return updateFormat.format(new Object[]{table, values, other});
 	}
 
 	/**
@@ -126,7 +126,7 @@ public abstract class SqlTemplate implements TopSqlTemplate, PaginateSqlTemplate
 	 * @return formatted SQL
 	 */
 	public String formatDeleteSql(String table, String other) {
-		return deleteFormat.format(new Object[] {table, other});
+		return deleteFormat.format(new Object[]{table, other});
 	}
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.i18n.model;
@@ -30,7 +30,7 @@ public class LocaleMessage {
 	 * @return mapping value
 	 */
 	public String getMessage(String code) {
-		return getMessage(code, new Object[] {});
+		return getMessage(code, new Object[]{});
 	}
 
 	/**

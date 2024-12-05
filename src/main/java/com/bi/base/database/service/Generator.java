@@ -1,8 +1,7 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
-
 package com.bi.base.database.service;
 
 import java.lang.reflect.Field;
@@ -15,12 +14,12 @@ import java.lang.reflect.Field;
  */
 public interface Generator {
 
-    /**
-     * Generate value by entity field.
-     *
-     * @param entity table entity
-     * @param field field in table entity
-     * @return Generate value
-     */
-    Object getValue(Object entity, Field field);
+	/**
+	 * Generate value by entity field.
+	 *
+	 * @param entity table entity
+	 * @param field field in table entity
+	 * @return Generate value
+	 */
+	Object getValue(Object entity, Field field);
 }

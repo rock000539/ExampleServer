@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.annotation;
@@ -22,7 +22,7 @@ import com.bi.base.annotation.condition.AbstractRestResultWrapperCondition;
  * @author Allen Lin
  * @since 1.0.0
  */
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Mapping
@@ -35,7 +35,7 @@ public @interface RestResultWrapper {
 	 */
 	@AliasFor("condition")
 	Class<? extends AbstractRestResultWrapperCondition>[] value() default {};
-	
+
 	/**
 	 * Get REST API result wrapper condition class.
 	 *

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.impl;
@@ -25,7 +25,7 @@ public class H2SqlTemplate extends SqlTemplate {
 
 	@Override
 	public String formatTopSql(String sql, int top) {
-		return topFormat.format(new Object[] {sql, top});
+		return topFormat.format(new Object[]{sql, top});
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class H2SqlTemplate extends SqlTemplate {
 		String page = String.valueOf(startRow).concat(", ").concat(String.valueOf(size));
 		sql = formatSelectWrapperSql(sql);
 		sql = formatSortSql(sql, pageable.getSort());
-		return topFormat.format(new Object[] {sql, page});
+		return topFormat.format(new Object[]{sql, page});
 	}
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.util;
@@ -27,67 +27,67 @@ public class JsonParser {
 
 	protected static ObjectMapper objectMapper;
 
-    @Autowired
-    private void set(ObjectMapper objectMapper) {
-	    this.objectMapper = objectMapper;
-    }
+	@Autowired
+	private void set(ObjectMapper objectMapper) {
+		this.objectMapper = objectMapper;
+	}
 
-    /**
-     * Maps json string to specified class.
-     *
-     * @param json string to parse
-     * @param clazz class of object in which json will be parsed
-     * @param <T> generic parameter for clazz
-     * @return mapped T class instance
-     * @throws IOException
-     */
-    public static <T> T entity(String json, Class<T> clazz) throws IOException {
-        return objectMapper.readValue(json, clazz);
-    }
+	/**
+	 * Maps json string to specified class.
+	 *
+	 * @param json string to parse
+	 * @param clazz class of object in which json will be parsed
+	 * @param <T> generic parameter for clazz
+	 * @return mapped T class instance
+	 * @throws IOException
+	 */
+	public static <T> T entity(String json, Class<T> clazz) throws IOException {
+		return objectMapper.readValue(json, clazz);
+	}
 
-    /**
-     * Maps json string to {@link ArrayList} of specified class object instances.
-     *
-     * @param json string to parse
-     * @param clazz class of object in which json will be parsed
-     * @param <T> generic parameter for clazz
-     * @return mapped T class instance
-     * @throws IOException
-     */
-    public static <T> ArrayList<T> arrayList(String json, Class<T> clazz) throws IOException {
-        TypeFactory typeFactory = objectMapper.getTypeFactory();
-        JavaType type = typeFactory.constructCollectionType(ArrayList.class, clazz);
-        return objectMapper.readValue(json, type);
-    }
+	/**
+	 * Maps json string to {@link ArrayList} of specified class object instances.
+	 *
+	 * @param json string to parse
+	 * @param clazz class of object in which json will be parsed
+	 * @param <T> generic parameter for clazz
+	 * @return mapped T class instance
+	 * @throws IOException
+	 */
+	public static <T> ArrayList<T> arrayList(String json, Class<T> clazz) throws IOException {
+		TypeFactory typeFactory = objectMapper.getTypeFactory();
+		JavaType type = typeFactory.constructCollectionType(ArrayList.class, clazz);
+		return objectMapper.readValue(json, type);
+	}
 
-    /**
-     * Writes specified object as string.
-     *
-     * @param object object to write
-     * @return result json
-     * @throws IOException
-     */
-    public static String toJson(Object object) throws IOException {
-        return objectMapper.writeValueAsString(object);
-    }
+	/**
+	 * Writes specified object as string.
+	 *
+	 * @param object object to write
+	 * @return result json
+	 * @throws IOException
+	 */
+	public static String toJson(Object object) throws IOException {
+		return objectMapper.writeValueAsString(object);
+	}
 
-    /**
-     * Writes specified object as JsonNode.
-     *
-     * @param object object to write
-     * @return result JsonNode
-     */
-    public static JsonNode toJsonNode(Object object) {
-    	return objectMapper.valueToTree(object);
-    }
+	/**
+	 * Writes specified object as JsonNode.
+	 *
+	 * @param object object to write
+	 * @return result JsonNode
+	 */
+	public static JsonNode toJsonNode(Object object) {
+		return objectMapper.valueToTree(object);
+	}
 
-    /**
-     * Validate JSON from string.
-     *
-     * @param json json string
-     * @return result
-     */
-    public static boolean validJson(String json) {
+	/**
+	 * Validate JSON from string.
+	 *
+	 * @param json json string
+	 * @return result
+	 */
+	public static boolean validJson(String json) {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.readTree(json);
@@ -97,18 +97,18 @@ public class JsonParser {
 		}
 	}
 
-    /**
-     * Validate JSON string can bind with object.
-     *
-     * @param json json string
-     * @return result
-     */
-    public static <T> boolean validJson(String json, Class<T> clazz) {
-    	try {
-    		entity(json, clazz);
-    		return true;
-    	} catch (Exception e) {
-    		return false;
-    	}
-    }
+	/**
+	 * Validate JSON string can bind with object.
+	 *
+	 * @param json json string
+	 * @return result
+	 */
+	public static <T> boolean validJson(String json, Class<T> clazz) {
+		try {
+			entity(json, clazz);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

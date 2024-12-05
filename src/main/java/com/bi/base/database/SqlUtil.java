@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database;
@@ -318,50 +318,50 @@ public interface SqlUtil {
 	 */
 	<T> Page<T> find(String sql, Pageable pageable, Class<T> clazz, SqlParameterSource params);
 
-    /**
-     * Query DB object for list.
-     *
-     * @param sql SQL query to execute
-     * @param clazz the type that the result object is expected to match
-     * @param params parameter to bind to the query
-     * @return entities
-     */
-    <T> List<T> find(String sql, Class<T> clazz, Object... params);
+	/**
+	 * Query DB object for list.
+	 *
+	 * @param sql SQL query to execute
+	 * @param clazz the type that the result object is expected to match
+	 * @param params parameter to bind to the query
+	 * @return entities
+	 */
+	<T> List<T> find(String sql, Class<T> clazz, Object... params);
 
-    /**
-     * Query DB object for list.<br>
+	/**
+	 * Query DB object for list.<br>
 	 * Enhance efficacy.
-     *
+	 *
 	 * @since 1.1.0
-     * @param sql SQL query to execute
-     * @param clazz the type that the result object is expected to match
+	 * @param sql SQL query to execute
+	 * @param clazz the type that the result object is expected to match
 	 * @param paramTypes the type that the parameter object is expected to match
-     * @param params parameter to bind to the query
-     * @return entities
-     */
-    <T> List<T> find(String sql, Class<T> clazz, int[] paramTypes, Object... params);
+	 * @param params parameter to bind to the query
+	 * @return entities
+	 */
+	<T> List<T> find(String sql, Class<T> clazz, int[] paramTypes, Object... params);
 
-    /**
-     * Query DB object for list.
-     *
-     * @param sql SQL query to execute
-     * @param clazz the type that the result object is expected to match
-     * @param params parameter to bind to the query
-     * @return entities
-     */
+	/**
+	 * Query DB object for list.
+	 *
+	 * @param sql SQL query to execute
+	 * @param clazz the type that the result object is expected to match
+	 * @param params parameter to bind to the query
+	 * @return entities
+	 */
 	<T> List<T> find(String sql, Class<T> clazz, Map<String, ?> params);
 
-    /**
-     * Query DB object for list.
-     *
+	/**
+	 * Query DB object for list.
+	 *
 	 * @since 1.4.0
 	 * @see MapSqlParameterSource
 	 * @see BeanPropertySqlParameterSource
-     * @param sql SQL query to execute
-     * @param clazz the type that the result object is expected to match
-     * @param params parameter to bind to the query
-     * @return entities
-     */
+	 * @param sql SQL query to execute
+	 * @param clazz the type that the result object is expected to match
+	 * @param params parameter to bind to the query
+	 * @return entities
+	 */
 	<T> List<T> find(String sql, Class<T> clazz, SqlParameterSource params);
 
 	/**
@@ -536,47 +536,47 @@ public interface SqlUtil {
 	 */
 	long countWithWrapper(String sql, SqlParameterSource params);
 
-    /**
-     * Modifies DB object. (include insert and update SQL)
-     *
+	/**
+	 * Modifies DB object. (include insert and update SQL)
+	 *
 	 * @param sql SQL insert/update to execute
-     * @param params parameter to bind to the query
-     * @return the number of rows affected
-     */
-    int update(String sql, Object... params);
+	 * @param params parameter to bind to the query
+	 * @return the number of rows affected
+	 */
+	int update(String sql, Object... params);
 
-    /**
-     * Modifies DB object. (include insert and update SQL)<br>
-     * Enhance efficacy.
+	/**
+	 * Modifies DB object. (include insert and update SQL)<br>
+	 * Enhance efficacy.
 	 *
 	 * @since 1.1.0
 	 * @param sql SQL insert/update to execute
 	 * @param paramTypes the type that the parameter object is expected to match
-     * @param params parameter to bind to the query
-     * @return the number of rows affected
-     */
-    int update(String sql, int[] paramTypes, Object... params);
+	 * @param params parameter to bind to the query
+	 * @return the number of rows affected
+	 */
+	int update(String sql, int[] paramTypes, Object... params);
 
-    /**
-     * Modifies DB object. (include insert and update SQL)
-     *
+	/**
+	 * Modifies DB object. (include insert and update SQL)
+	 *
 	 * @param sql SQL insert/update to execute
-     * @param params parameter to bind to the query
-     * @return the number of rows affected
-     */
-    int update(String sql, Map<String, ?> params);
+	 * @param params parameter to bind to the query
+	 * @return the number of rows affected
+	 */
+	int update(String sql, Map<String, ?> params);
 
-    /**
-     * Modifies DB object. (include insert and update SQL)
-     *
+	/**
+	 * Modifies DB object. (include insert and update SQL)
+	 *
 	 * @since 1.4.0
 	 * @see MapSqlParameterSource
 	 * @see BeanPropertySqlParameterSource
-     * @param sql SQL insert/update to execute
-     * @param params parameter to bind to the query
-     * @return the number of rows affected
-     */
-    int update(String sql, SqlParameterSource params);
+	 * @param sql SQL insert/update to execute
+	 * @param params parameter to bind to the query
+	 * @return the number of rows affected
+	 */
+	int update(String sql, SqlParameterSource params);
 
 	/**
 	 * Modifies DB object.(include insert and update SQL)<br>
@@ -604,35 +604,35 @@ public interface SqlUtil {
 	 */
 	int update(String sql, SqlParameterSource params, KeyHolder generatedKeyHolder);
 
-    /**
-     * Modifies DB object. (include insert and update SQL)
-     *
-     * @param sql SQL insert/update to execute
-     * @param params parameter to bind to the query
-     * @return an array of the number of rows affected by each statement
-     */
-    int[] updateBatch(String sql, List<Object[]> params);
+	/**
+	 * Modifies DB object. (include insert and update SQL)
+	 *
+	 * @param sql SQL insert/update to execute
+	 * @param params parameter to bind to the query
+	 * @return an array of the number of rows affected by each statement
+	 */
+	int[] updateBatch(String sql, List<Object[]> params);
 
-    /**
-     * Modifies DB object. (include insert and update SQL)<br>
-     * Enhance efficacy.
+	/**
+	 * Modifies DB object. (include insert and update SQL)<br>
+	 * Enhance efficacy.
 	 *
 	 * @since 1.1.0
-     * @param sql SQL insert/update to execute
+	 * @param sql SQL insert/update to execute
 	 * @param paramTypes the type that the parameter object is expected to match
-     * @param params parameter to bind to the query
-     * @return an array of the number of rows affected by each statement
-     */
-    int[] updateBatch(String sql, int[] paramTypes, List<Object[]> params);
+	 * @param params parameter to bind to the query
+	 * @return an array of the number of rows affected by each statement
+	 */
+	int[] updateBatch(String sql, int[] paramTypes, List<Object[]> params);
 
-    /**
-     * Modifies DB object. (include insert and update SQL)
-     *
-     * @param sql SQL insert/update to execute
-     * @param params parameter to bind to the query
-     * @return an array of the number of rows affected by each statement
-     */
-    int[] updateBatch(String sql, Map<String, ?>[] params);
+	/**
+	 * Modifies DB object. (include insert and update SQL)
+	 *
+	 * @param sql SQL insert/update to execute
+	 * @param params parameter to bind to the query
+	 * @return an array of the number of rows affected by each statement
+	 */
+	int[] updateBatch(String sql, Map<String, ?>[] params);
 
 	/**
 	 * Modifies DB object. (include insert and update SQL)
@@ -647,21 +647,21 @@ public interface SqlUtil {
 	int[] updateBatch(String sql, SqlParameterSource[] params);
 
 	/**
-     * Execute stored procedure.
-     *
-     * @param spName stored procedure name
-     * @return exactly one row
-     */
-    Map<String, Object> executeSp(String spName);
+	 * Execute stored procedure.
+	 *
+	 * @param spName stored procedure name
+	 * @return exactly one row
+	 */
+	Map<String, Object> executeSp(String spName);
 
 	/**
-     * Execute stored procedure.
-     *
-     * @param spName stored procedure name
-     * @param params parameter
-     * @return exactly one row
-     */
-    Map<String, Object> executeSp(String spName, Map<String, ?> params);
+	 * Execute stored procedure.
+	 *
+	 * @param spName stored procedure name
+	 * @param params parameter
+	 * @return exactly one row
+	 */
+	Map<String, Object> executeSp(String spName, Map<String, ?> params);
 
 	/**
 	 * Execute stored procedure.

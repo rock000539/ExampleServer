@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.model;
@@ -21,11 +21,11 @@ public abstract class BaseTableObject implements Serializable {
 
 	private static final long serialVersionUID = 2867517501002403590L;
 
-    private Timestamp createDt = new Timestamp(System.currentTimeMillis());
+	private Timestamp createDt = new Timestamp(System.currentTimeMillis());
 
-    private String createBy = "SYS";
+	private String createBy = "SYS";
 
-    private Timestamp modifyDt;
+	private Timestamp modifyDt;
 
-    private String modifyBy;
+	private String modifyBy;
 }

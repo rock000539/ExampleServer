@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 - SoftBI Corporation Limited.
+ * Copyright (c) 2022 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.dao.impl;

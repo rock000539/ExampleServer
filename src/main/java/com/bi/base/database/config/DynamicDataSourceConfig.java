@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.config;
@@ -35,51 +35,51 @@ public class DynamicDataSourceConfig {
 	public static final String DYNAMIC_DATA_SOURCE = "dynamicDataSource";
 
 	@Autowired
-    private DataSource dataSource;
+	private DataSource dataSource;
 
 	@Autowired
-    private ApplicationContext appContext;
+	private ApplicationContext appContext;
 
 	@Autowired
 	private JdbcProperties jdbcProperties;
 
 	@Bean(name = DYNAMIC_DATA_SOURCE)
-    public DynamicDataSource dynamicDataSource() {
-        Map<Object, Object> targetDataSources = new HashMap<>();
-        Map<Object, JdbcTemplate> targetJdbcTemplate = new HashMap<>();
-        Map<Object, NamedParameterJdbcTemplate> targetNamedParameterJdbcTemplate = new HashMap<>();
-        DynamicDataSource dynamicDataSource = new DynamicDataSource();
-        JdbcTemplate jdbcTemplate;
+	public DynamicDataSource dynamicDataSource() {
+		Map<Object, Object> targetDataSources = new HashMap<>();
+		Map<Object, JdbcTemplate> targetJdbcTemplate = new HashMap<>();
+		Map<Object, NamedParameterJdbcTemplate> targetNamedParameterJdbcTemplate = new HashMap<>();
+		DynamicDataSource dynamicDataSource = new DynamicDataSource();
+		JdbcTemplate jdbcTemplate;
 
-        String[] dataSourceNames = appContext.getBeanNamesForType(DataSource.class);
-        int dataSourceSize = 0;
-        for (String name : dataSourceNames) {
-        	if (!DYNAMIC_DATA_SOURCE.equals(name)) {
-	        	DataSource ds = appContext.getBean(name, DataSource.class);
-	        	jdbcTemplate = getJdbcTemplate(ds);
-	        	targetDataSources.put(name, ds);
-	        	targetJdbcTemplate.put(name, jdbcTemplate);
-	        	targetNamedParameterJdbcTemplate.put(name, getNamedParameterJdbcTemplate(jdbcTemplate));
-	            DynamicDataSourceHolder.addDataSourceKey(name);
-                dataSourceSize++;
-	            log.debug("Dynamic add datasource: {}", name);
-        	}
-        }
+		String[] dataSourceNames = appContext.getBeanNamesForType(DataSource.class);
+		int dataSourceSize = 0;
+		for (String name : dataSourceNames) {
+			if (!DYNAMIC_DATA_SOURCE.equals(name)) {
+				DataSource ds = appContext.getBean(name, DataSource.class);
+				jdbcTemplate = getJdbcTemplate(ds);
+				targetDataSources.put(name, ds);
+				targetJdbcTemplate.put(name, jdbcTemplate);
+				targetNamedParameterJdbcTemplate.put(name, getNamedParameterJdbcTemplate(jdbcTemplate));
+				DynamicDataSourceHolder.addDataSourceKey(name);
+				dataSourceSize++;
+				log.debug("Dynamic add datasource: {}", name);
+			}
+		}
 
-        log.debug("Dynamic targetDataSources: {}", targetDataSources);
+		log.debug("Dynamic targetDataSources: {}", targetDataSources);
 
-        jdbcTemplate = getJdbcTemplate(dataSource);
+		jdbcTemplate = getJdbcTemplate(dataSource);
 
-        dynamicDataSource.setSize(dataSourceSize);
-        dynamicDataSource.setTargetDataSources(targetDataSources);
-        dynamicDataSource.setTargetJdbcTemplate(targetJdbcTemplate);
-        dynamicDataSource.setTargetNamedParameterJdbcTemplate(targetNamedParameterJdbcTemplate);
-        dynamicDataSource.setDefaultTargetDataSource(dataSource);
-        dynamicDataSource.setDefaultJdbcTemplate(jdbcTemplate);
-        dynamicDataSource.setDefaultNamedParameterJdbcTemplate(getNamedParameterJdbcTemplate(jdbcTemplate));
-        dynamicDataSource.afterPropertiesSet();
-        return dynamicDataSource;
-    }
+		dynamicDataSource.setSize(dataSourceSize);
+		dynamicDataSource.setTargetDataSources(targetDataSources);
+		dynamicDataSource.setTargetJdbcTemplate(targetJdbcTemplate);
+		dynamicDataSource.setTargetNamedParameterJdbcTemplate(targetNamedParameterJdbcTemplate);
+		dynamicDataSource.setDefaultTargetDataSource(dataSource);
+		dynamicDataSource.setDefaultJdbcTemplate(jdbcTemplate);
+		dynamicDataSource.setDefaultNamedParameterJdbcTemplate(getNamedParameterJdbcTemplate(jdbcTemplate));
+		dynamicDataSource.afterPropertiesSet();
+		return dynamicDataSource;
+	}
 
 	protected JdbcTemplate getJdbcTemplate(DataSource dataSource) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -90,10 +90,10 @@ public class DynamicDataSourceConfig {
 			jdbcTemplate.setQueryTimeout((int) template.getQueryTimeout().getSeconds());
 		}
 		return jdbcTemplate;
-    }
+	}
 
 	protected NamedParameterJdbcTemplate getNamedParameterJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        return new NamedParameterJdbcTemplate(jdbcTemplate);
-    }
+		return new NamedParameterJdbcTemplate(jdbcTemplate);
+	}
 
 }

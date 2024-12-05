@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.annotation.condition;
@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.condition.RequestCondition;
 public class ApiVersionCondition implements RequestCondition<ApiVersionCondition> {
 
 	/**
-	 *  Extract the version part from url. example [v0-9]
+	 * Extract the version part from url. example [v0-9]
 	 */
 	private final static Pattern VERSION_PREFIX_PATTERN = Pattern.compile("v(\\d+)/");
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.config;
@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Primary;
  * @since 1.0.0
  */
 @Slf4j
-@ConditionalOnProperty(name = { "spring.datasource.enabled", "spring.jta.atomikos.enabled" }, havingValue = "true")
+@ConditionalOnProperty(name = {"spring.datasource.enabled", "spring.jta.atomikos.enabled"}, havingValue = "true")
 @ConditionalOnMissingBean(name = "dataSource")
 @Configuration("baseJtaDataSourceConfig")
 @EnableConfigurationProperties

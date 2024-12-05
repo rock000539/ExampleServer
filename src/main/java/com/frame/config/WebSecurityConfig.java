@@ -44,7 +44,7 @@ public class WebSecurityConfig {
 	public static final String HOME_PATH = "/";
 
 	public static final String[] ANONYMOUS_PATHS = {
-			LOGIN_PATH, SSO_LOGIN_PATH, LOGOUT_PATH, DENIED_PATH, LOGIN_FUNCTION_PATH, LOGIN_API_PATH ,
+			LOGIN_PATH, SSO_LOGIN_PATH, LOGOUT_PATH, DENIED_PATH, LOGIN_FUNCTION_PATH, LOGIN_API_PATH,
 			"/swagger-ui.html",
 			"/swagger-ui/*",
 			"/v3/api-docs/*",

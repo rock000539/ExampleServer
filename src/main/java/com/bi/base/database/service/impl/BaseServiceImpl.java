@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.service.impl;
@@ -23,8 +23,8 @@ import java.util.List;
 @NoArgsConstructor
 public class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseService<T> {
 
-    @Autowired
-    protected M baseDao;
+	@Autowired
+	protected M baseDao;
 
 	/**
 	 * For {@link com.bi.base.database.annotation.BaseAutowired} that inject spring bean manually.
@@ -33,7 +33,7 @@ public class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseService<T> 
 	 * @param baseDao data access object
 	 */
 	public BaseServiceImpl(M baseDao) {
-    	this.baseDao = baseDao;
+		this.baseDao = baseDao;
 	}
 
 	@Override

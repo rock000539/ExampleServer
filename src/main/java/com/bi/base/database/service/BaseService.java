@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.service;
@@ -63,9 +63,9 @@ public interface BaseService<T> {
 	 * @param params parameter to bind to the query, mapping order with field in entity
 	 * @return is exist
 	 */
-    boolean existById(Object... params);
+	boolean existById(Object... params);
 
-    /**
+	/**
 	 * Get all data from table.
 	 *
 	 * @return entities

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base;
@@ -20,12 +20,12 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 public class ApplicationMain extends SpringBootServletInitializer {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ApplicationMain.class, args);
-    }
-    
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-    	return builder.sources(ApplicationMain.class);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(ApplicationMain.class, args);
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(ApplicationMain.class);
+	}
 }

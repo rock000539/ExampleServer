@@ -1,5 +1,8 @@
+/*
+ * Copyright (c) 2024 -Parker.
+ * All rights reserved.
+ */
 package com.exampleServer.adm.dao.impl;
-
 
 import com.bi.base.database.dao.impl.BaseDaoImpl;
 import com.exampleServer.adm.dao.AdmUserDao;
@@ -14,13 +17,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class AdmUserDaoImpl extends BaseDaoImpl<AdmUser> implements AdmUserDao {
 
-    @Override
-    public List<AdmUser> findByUserName(String userName) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM adm_user WHERE user_name = :userName ");
+	@Override
+	public List<AdmUser> findByUserName(String userName) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM adm_user WHERE user_name = :userName ");
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("userName", userName);
-        return exeSql.find(sql.toString(), AdmUser.class, params);
-    }
+		Map<String, Object> params = new HashMap<>();
+		params.put("userName", userName);
+		return exeSql.find(sql.toString(), AdmUser.class, params);
+	}
 }

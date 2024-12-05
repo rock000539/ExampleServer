@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.service.impl;
@@ -28,31 +28,33 @@ public class SequenceGenerator implements Generator {
 	@Override
 	public Object getValue(Object entity, Field field) {
 		ApplicationContext context = WebMvcConfig.getApplicationContext();
-        DynamicDataSource dynamicDataSource = context.getBean(DynamicDataSource.class);
+		DynamicDataSource dynamicDataSource = context.getBean(DynamicDataSource.class);
 		DataSource dataSource = dynamicDataSource.getDataSource();
-        try {
-            BaseSequence baseSequence = field.getAnnotation(BaseSequence.class);
-            if (baseSequence != null) {
-                Class<?> type = field.getType();
-                String name = baseSequence.name();
-                String catalog = baseSequence.catalog();
-                String schema = baseSequence.schema();
-                if (StringUtils.isNotBlank(schema)) name = schema.concat(".").concat(name);
-                if (StringUtils.isNotBlank(catalog)) name = catalog.concat(".").concat(name);
-                if (int.class.equals(type)) {
-                    return DatabaseType.fromMetaData(dataSource).getSequenceMaxValueIncrementer(name).nextIntValue();
-                } else if (Long.class.equals(type)) {
-                    return DatabaseType.fromMetaData(dataSource).getSequenceMaxValueIncrementer(name).nextLongValue();
-                } else if (String.class.equals(type)) {
-                    return DatabaseType.fromMetaData(dataSource).getSequenceMaxValueIncrementer(name).nextStringValue();
-                } else {
-                    throw new ConfigurationException("Did not support field type: " + type); 
-                }
-            } else {
-                throw new ConfigurationException("Did not set BaseSequence annotation");
-            }
-        } catch (MetaDataAccessException | ConfigurationException e) {
-            throw new RuntimeException(e);
-        }
+		try {
+			BaseSequence baseSequence = field.getAnnotation(BaseSequence.class);
+			if (baseSequence != null) {
+				Class<?> type = field.getType();
+				String name = baseSequence.name();
+				String catalog = baseSequence.catalog();
+				String schema = baseSequence.schema();
+				if (StringUtils.isNotBlank(schema))
+					name = schema.concat(".").concat(name);
+				if (StringUtils.isNotBlank(catalog))
+					name = catalog.concat(".").concat(name);
+				if (int.class.equals(type)) {
+					return DatabaseType.fromMetaData(dataSource).getSequenceMaxValueIncrementer(name).nextIntValue();
+				} else if (Long.class.equals(type)) {
+					return DatabaseType.fromMetaData(dataSource).getSequenceMaxValueIncrementer(name).nextLongValue();
+				} else if (String.class.equals(type)) {
+					return DatabaseType.fromMetaData(dataSource).getSequenceMaxValueIncrementer(name).nextStringValue();
+				} else {
+					throw new ConfigurationException("Did not support field type: " + type);
+				}
+			} else {
+				throw new ConfigurationException("Did not set BaseSequence annotation");
+			}
+		} catch (MetaDataAccessException | ConfigurationException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

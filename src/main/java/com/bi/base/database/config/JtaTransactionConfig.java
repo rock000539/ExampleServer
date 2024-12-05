@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.config;
@@ -32,16 +32,17 @@ import org.springframework.util.StringUtils;
  * @since 1.0.0
  */
 @Slf4j
-@ConditionalOnProperty(name = { "spring.datasource.enabled", "spring.jta.atomikos.enabled" }, havingValue = "true")
+@ConditionalOnProperty(name = {"spring.datasource.enabled", "spring.jta.atomikos.enabled"}, havingValue = "true")
 @Configuration("baseJtaTransactionConfig")
 @EnableTransactionManagement
 @EnableConfigurationProperties
 public class JtaTransactionConfig {
 
-    private UserTransaction userTransaction;
-    private TransactionManager transactionManager;
+	private UserTransaction userTransaction;
 
-    @Bean
+	private TransactionManager transactionManager;
+
+	@Bean
 	@ConfigurationProperties(prefix = "spring.jta.atomikos")
 	public Properties atomikosProperties() {
 		return new Properties();

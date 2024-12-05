@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database;
@@ -21,5 +21,5 @@ public interface PaginateSqlTemplate {
 	 * @param pageable pagination parameter information
 	 * @return formatted SQL
 	 */
-    String formatPaginateSql(String sql, Pageable pageable);
+	String formatPaginateSql(String sql, Pageable pageable);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.annotation.handler;
@@ -63,27 +63,27 @@ public class ApiVersioningRequestMappingHandler extends RequestMappingHandlerMap
 	/**
 	 * Combine the object all API versions.
 	 */
-    @Override
-    protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
-        RequestMappingInfo info = this.createRequestMappingInfo(method, null);
-        if (info != null) {
-            ApiVersion apiVersion = AnnotatedElementUtils.findMergedAnnotation(method, ApiVersion.class);
-            apiVersion = apiVersion != null ? apiVersion : AnnotatedElementUtils.findMergedAnnotation(handlerType, ApiVersion.class);
-            RequestMappingInfo typeInfo = this.createRequestMappingInfo(handlerType, apiVersion);
-            if (typeInfo != null) {
-                info = typeInfo.combine(info);
-            }
-        }
-        return info;
-    }
+	@Override
+	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
+		RequestMappingInfo info = this.createRequestMappingInfo(method, null);
+		if (info != null) {
+			ApiVersion apiVersion = AnnotatedElementUtils.findMergedAnnotation(method, ApiVersion.class);
+			apiVersion = apiVersion != null ? apiVersion : AnnotatedElementUtils.findMergedAnnotation(handlerType, ApiVersion.class);
+			RequestMappingInfo typeInfo = this.createRequestMappingInfo(handlerType, apiVersion);
+			if (typeInfo != null) {
+				info = typeInfo.combine(info);
+			}
+		}
+		return info;
+	}
 
-    /**
-     * Set the latest API version number.
-     *
-     * @param element annotation element
-     * @param apiVersion API version
-     * @return mapping information
-     */
+	/**
+	 * Set the latest API version number.
+	 *
+	 * @param element annotation element
+	 * @param apiVersion API version
+	 * @return mapping information
+	 */
 	@SuppressWarnings("unchecked")
 	private RequestMappingInfo createRequestMappingInfo(AnnotatedElement element, ApiVersion apiVersion) {
 		Set<RequestMapping> requestMappings = AnnotatedElementUtils.findAllMergedAnnotations(element, RequestMapping.class);

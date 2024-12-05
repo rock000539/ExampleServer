@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.impl;
@@ -32,7 +32,7 @@ public class MsSql2012SqlTemplate extends SqlTemplate {
 
 	@Override
 	public String formatTopSql(String sql, int top) {
-		return topFormat.format(new Object[] {sql, top});
+		return topFormat.format(new Object[]{sql, top});
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class MsSql2012SqlTemplate extends SqlTemplate {
 			orders.add(order.getProperty().concat(" ").concat(order.getDirection().name()));
 		}
 		sql = formatSelectWrapperSql(sql);
-		return paginateFormat.format(new Object[] {sql, String.valueOf(startRow), String.valueOf(pageable.getPageSize()), StringUtils.join(orders, ", ")});
+		return paginateFormat.format(new Object[]{sql, String.valueOf(startRow), String.valueOf(pageable.getPageSize()), StringUtils.join(orders, ", ")});
 	}
 
 }

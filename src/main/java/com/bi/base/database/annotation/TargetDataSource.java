@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.annotation;
@@ -18,16 +18,16 @@ import java.lang.annotation.Target;
  * @author Allen Lin
  * @since 1.0.0
  */
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface TargetDataSource {
-	
+
 	/**
 	 * Datasource bean name.<br>
-	 * The name of the bean must be config on initialize. 
+	 * The name of the bean must be config on initialize.
 	 * 
 	 * @return datasource bean name
 	 */
-    String value() default "";
+	String value() default "";
 }

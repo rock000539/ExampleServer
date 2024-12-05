@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.config;
@@ -37,14 +37,14 @@ public class DataSourceConfig {
 
 	@ConditionalOnProperty(name = "spring.datasource.jndiName")
 	@Bean(value = "dataSource", destroyMethod = "")
-    public DataSource jndiDataSource() {
+	public DataSource jndiDataSource() {
 		JndiDataSourceLookup jndiDataSourceLookup = new JndiDataSourceLookup();
 		jndiDataSourceLookup.setResourceRef(true);
 
 		log.debug("Load dataSource from JNDI: {}", jndiName);
 
 		return jndiDataSourceLookup.getDataSource(jndiName);
-    }
+	}
 
 	@ConditionalOnMissingBean(name = "dataSource")
 	@Bean

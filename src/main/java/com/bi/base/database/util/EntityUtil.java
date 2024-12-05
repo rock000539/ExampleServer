@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.database.util;
@@ -48,10 +48,11 @@ public final class EntityUtil {
 
 		if (baseSp != null) {
 			name = baseSp.name();
-			if (StringUtils.isBlank(name)) name = baseSp.clazzFormat().to(baseSp.storedProcedureFormat(), clazz.getSimpleName());
+			if (StringUtils.isBlank(name))
+				name = baseSp.clazzFormat().to(baseSp.storedProcedureFormat(), clazz.getSimpleName());
 		}
 
-    	return name;
+		return name;
 	}
 
 	/**
@@ -68,12 +69,15 @@ public final class EntityUtil {
 			String catalog = baseTable.catalog();
 			String schema = baseTable.schema();
 			name = baseTable.name();
-			if (StringUtils.isBlank(name)) name = baseTable.clazzFormat().to(baseTable.tableFormat(), clazz.getSimpleName());
-			if (StringUtils.isNotBlank(schema)) name = schema.concat(".").concat(name);
-			if (StringUtils.isNotBlank(catalog)) name = catalog.concat(".").concat(name);
+			if (StringUtils.isBlank(name))
+				name = baseTable.clazzFormat().to(baseTable.tableFormat(), clazz.getSimpleName());
+			if (StringUtils.isNotBlank(schema))
+				name = schema.concat(".").concat(name);
+			if (StringUtils.isNotBlank(catalog))
+				name = catalog.concat(".").concat(name);
 		}
 
-    	return name;
+		return name;
 	}
 
 	/**
@@ -85,12 +89,12 @@ public final class EntityUtil {
 	 * @return table ID name
 	 */
 	public static Set<String> getIdsName(Class<?> clazz, boolean alias) {
-    	BaseTable baseTable = getBaseTable(clazz);
+		BaseTable baseTable = getBaseTable(clazz);
 
-    	Assert.isTrue(baseTable != null, "It is not a table entity");
+		Assert.isTrue(baseTable != null, "It is not a table entity");
 
 		List<Field> fields = FieldUtils.getFieldsListWithAnnotation(clazz, BaseId.class);
-    	return fields.stream()
+		return fields.stream()
 				.filter(field -> !isIgnoreColumn(field))
 				.map(field -> getColumnName(baseTable, field, alias))
 				.collect(Collectors.toCollection(TreeSet::new));
@@ -117,9 +121,9 @@ public final class EntityUtil {
 	 * @return table column name
 	 */
 	public static Set<String> getColumnsName(Class<?> clazz, boolean alias) {
-    	BaseTable baseTable = getBaseTable(clazz);
+		BaseTable baseTable = getBaseTable(clazz);
 
-    	Assert.isTrue(baseTable != null, "It is not a table entity");
+		Assert.isTrue(baseTable != null, "It is not a table entity");
 
 		List<Field> fields = FieldUtils.getAllFieldsList(clazz);
 		return fields.stream()
@@ -202,7 +206,8 @@ public final class EntityUtil {
 				String fieldName = field.getName();
 				String methodName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
 				Method method = MethodUtils.getMatchingAccessibleMethod(entity.getClass(), methodName, field.getType());
-				if (method != null) fieldWithSetter.put(fieldName, methodName);
+				if (method != null)
+					fieldWithSetter.put(fieldName, methodName);
 			}
 		});
 

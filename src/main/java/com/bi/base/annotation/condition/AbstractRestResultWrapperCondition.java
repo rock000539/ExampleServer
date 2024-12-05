@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - SoftBI Corporation Limited.
+ * Copyright (c) 2018 -Parker.
  * All rights reserved.
  */
 package com.bi.base.annotation.condition;
@@ -27,32 +27,32 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class AbstractRestResultWrapperCondition {
-	
+
 	/**
 	 * Server HTTP request information.
 	 */
 	protected ServerHttpRequest serverHttpRequest;
-	
+
 	/**
 	 * Server HTTP response information.
 	 */
 	protected ServerHttpResponse serverHttpResponse;
-	
+
 	/**
 	 * REST API result data.
 	 */
 	protected Object result;
-	
+
 	/**
 	 * REST API definition method.
 	 */
 	protected Method method;
-	
+
 	/**
 	 * REST API definition media type.
 	 */
 	protected MediaType mediaType;
-	
+
 	/**
 	 * Condition to wrapper API result.
 	 *
