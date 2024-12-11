@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -279,8 +279,7 @@ public class CheckmarxUtil {
 	/**
 	 * for fix Absolute Path Traversal 安全的建立檔案，路徑or檔名有安全疑慮直接報錯
 	 *
-	 * @param path
-	 * @param name
+	 * @param file
 	 * @return
 	 * @throws Exception
 	 */

@@ -16,7 +16,7 @@ compileJava.options.encoding = 'UTF-8'
 
 
 ext {
-    cloudBaseVersion = '2.1.0'
+    cloudBaseVersion = '3.0.0'
 }
 
 repositories {
@@ -140,7 +140,7 @@ dependencies {
     // google java format
     implementation 'com.google.googlejavaformat:google-java-format:1.25.0'
 
-    //implementation files('lib/cloud-base-2.1.0.jar')
+    implementation files('lib/cloud-base-3.0.0.jar')
 }
 
 buildscript {
