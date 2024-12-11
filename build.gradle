@@ -7,17 +7,12 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.diffplug.spotless'
 apply plugin: 'org.gradlewebtools.minify'
 
-group 'com.pk'
+group 'com.parker'
 version = '1.0.0'
 
 sourceCompatibility = 1.17
 targetCompatibility = 1.17
 compileJava.options.encoding = 'UTF-8'
-
-
-ext {
-    cloudBaseVersion = '3.0.0'
-}
 
 repositories {
     mavenCentral()
