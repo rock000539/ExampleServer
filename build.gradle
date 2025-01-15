@@ -135,6 +135,9 @@ dependencies {
     // google java format
     implementation 'com.google.googlejavaformat:google-java-format:1.25.0'
 
+    //Spring Boot Starter Actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:3.4.1'
+
     implementation files('lib/cloud-base-3.0.0.jar')
 }
 

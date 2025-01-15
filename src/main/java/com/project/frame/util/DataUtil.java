@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -23,7 +24,7 @@ public class DataUtil {
 					String propertyName = propertyNameFromGetter(getter);
 
 					BigDecimal sum = dataList.stream()
-							.filter(data -> data != null)
+							.filter(Objects::nonNull)
 							.map(data -> {
 								try {
 									BigDecimal value = (BigDecimal) getter.invoke(data);

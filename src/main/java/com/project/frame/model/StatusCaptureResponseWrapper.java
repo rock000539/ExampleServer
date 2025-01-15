@@ -34,7 +34,8 @@ public class StatusCaptureResponseWrapper extends HttpServletResponseWrapper {
 		super.setStatus(sc);
 	}
 
-	public int getStatus() {
+  @Override
+  public int getStatus() {
 		return httpStatus;
 	}
 }

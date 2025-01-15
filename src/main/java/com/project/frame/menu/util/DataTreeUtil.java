@@ -6,6 +6,7 @@ package com.project.frame.menu.util;
 
 import com.project.frame.menu.model.DataTree;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -58,8 +59,8 @@ public final class DataTreeUtil {
 			node.setChildren(childNods);
 		}
 
-		if (nodes.size() == 0) {
-			return null;
+    if (nodes.isEmpty()) {
+      return Collections.emptyList();
 		} else {
 			return nodes;
 		}

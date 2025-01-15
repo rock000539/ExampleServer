@@ -51,8 +51,7 @@ public class SoapRequestParser {
 			addObjectToSOAPMessageBody(soapMessage, bodyObj);
 
 			// 將SOAPMessage的內容輸出為字符串
-			String soapMessageString = convertSOAPMessageToString(soapMessage);
-			return soapMessageString;
+            return convertSOAPMessageToString(soapMessage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

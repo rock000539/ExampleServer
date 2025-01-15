@@ -1,0 +1,84 @@
+開發規範:
+
+frame放置系統環境配置，與商業邏輯無關
+
+自定義Exception以BusinessException處理
+
+規劃系統模組需邏輯獨立，不可互相依賴
+
+IOC引入資源，按字母順序擺放
+引入順序，@value > service > dao > others
+
+class、method一律使用駝峰，就算遇到專門名詞，也改成駝峰命名 e.g: O2O > O2o
+
+push code前，必須先執行 google spotlessApply
+再執行google spotlesscheck確保code已format
+
+method 皆以動詞開頭
+
+method CRUD命名規則:
+
+Controller、Service層
+1. get
+2. insert
+3. update
+4. delete
+
+DAO層
+1. find
+2. insert
+3. update
+4. delete
+
+rest API Url 皆是名詞
+
+---------------------------------------------------------
+使用Facade時機:
+1. controller需要同時呼叫多個service時，改使用facade
+2. 分散式架構，處理server間溝通邏輯 e.g: API or MQ
+3. 建立統一的log或跨Service 的一致性檢查
+
+不使用springJpa處理，對應關係以ID儲存
+
+Service (BO: Business Object) 處理商業邏輯，不要建立與table高度相關的service，table相關service用BaseService處裡
+
+簡易CRUD 使用@BaseAutowired，引用BaseService還有BaseDao處理
+
+Entity需繼承加上Annotation: @BaseTable
+主鍵欄位，加上@BaseId 
+每個參數須加上@BaseColumn定義
+自動增長欄位使用@BaseGeneratorValue
+
+dao內容，需與table高度相關，有join的商業邏輯sql，需放到Custom package底下
+com.example.project
+  ├── repository
+  │     ├── UserRepository.java        // 與 table 相關的 DAO
+  │     ├── OrderRepository.java       // 與 table 相關的 DAO
+  │     ├── Custom                    // 專門存放功能相關的 DAO
+  │           ├── UserOrderDao.java     // 功能相關的 DAO
+  │           └── ProductAnalysisDao.java // 功能相關的 DAO
+  └── service
+  
+與 Table 相關的 DAO
+這類 DAO 以使用 Repository 結尾（符合 Spring Data Repository 的命名習慣）
+
+與功能相關的 DAO
+這類 DAO 建議以具體功能來命名，並使用 Dao結尾
+
+web model底下放置API請求與響應物件，以req和resp命名結尾
+新增與修改以不同命名區別
+com.example.project.web.model
+  ├── WebApiReq.java
+  ├── WebApiResp.java
+  ├── WebApiInsertReq.java
+  └── WebApiUpdateReq.java
+
+model底下放置商業邏輯物件、內部使用物件DTO
+內部使用物件DTO（Data Transfer Object）以Data結尾
+com.example.project.model
+  ├── User.java
+  ├── Order.java
+  └── UserData.java
+
+model中物件，內部不可有運算邏輯
+
