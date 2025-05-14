@@ -12,6 +12,7 @@ import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.Nullable;
+import org.springframework.util.ReflectionUtils;
 import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.ParseChar;
 import org.supercsv.cellprocessor.ParseDate;
@@ -40,7 +42,7 @@ public class CsvUploadHandler<E> {
 
 	public List<E> readWithCsvMapReader(InputStream fio, List<String> customHeader, String encoding) throws Exception {
 		Class<E> clazz = this.entityClazz;
-		List<E> result = new ArrayList<E>();
+		List<E> result = new ArrayList<>();
 		encoding = encoding == null ? "Utf8" : encoding;
 		try (InputStreamReader isReader = new InputStreamReader(fio, encoding);
 				Reader reader = new BufferedReader(isReader);
@@ -63,10 +65,10 @@ public class CsvUploadHandler<E> {
 						Field field = null;
 						try {
 							field = clazz.getDeclaredField(fieldName);
-							field.setAccessible(true);
+							ReflectionUtils.makeAccessible(field);
 
 							Object value = customerMap.get(customFieldName);
-							field.set(obj, value);
+							ReflectionUtils.setField(field, obj, value);
 						} catch (NoSuchFieldException e) {
 							continue;
 						}
@@ -99,7 +101,7 @@ public class CsvUploadHandler<E> {
 
 		if (header.length != customHeader.size()) {
 			if (customHeader.size() > header.length) {
-				List<String> newCustomHeader = new ArrayList<String>();
+				List<String> newCustomHeader = new ArrayList<>();
 				for (int i = 0; i < header.length; i++) {
 					newCustomHeader.add(customHeader.get(i));
 				}
@@ -107,16 +109,14 @@ public class CsvUploadHandler<E> {
 			}
 
 			if (header.length > customHeader.size()) {
-				List<String> newHeaders = new ArrayList<String>();
-				for (int i = 0; i < customHeader.size(); i++) {
-					newHeaders.add(header[i]);
-				}
+				List<String> newHeaders = new ArrayList<>();
+				Collections.addAll(newHeaders, header);
 				header = new String[customHeader.size()];
 				header = newHeaders.toArray(header);
 			}
 		}
 
-		Map<String, String> fieldMapping = new HashMap<String, String>();
+		Map<String, String> fieldMapping = new HashMap<>();
 		if (ArrayUtils.isEmpty(header)) {
 			return fieldMapping;
 		}
