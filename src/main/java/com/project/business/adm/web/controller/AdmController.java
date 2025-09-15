@@ -9,7 +9,6 @@ import com.project.business.adm.model.AdmUser;
 import com.project.business.adm.service.AdmService;
 import com.project.frame.annotation.RateLimitAspect;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,22 +19,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/adm")
 public class AdmController extends BaseApi {
 
-	@Autowired
-	private AdmService admService;
+  private final AdmService admService;
 
-	@RateLimitAspect
-	@PostMapping("/rateLimitTest")
-	public String handleRefundRequest() {
-		return "Success!!";
-	}
+  public AdmController(AdmService admService) {
+    this.admService = admService;
+  }
 
-	@GetMapping("/admUser")
-	public AdmUser getAdmUserByCode(@RequestParam String admUserCode) {
-		return admService.getAdmUserByCode(admUserCode);
-	}
+  @RateLimitAspect
+  @PostMapping("/rateLimitTest")
+  public String handleRefundRequest() {
+    return "Success!!";
+  }
 
-	@GetMapping("/admUsers")
-	public List<AdmUser> getAdmUsersByName(@RequestParam String admUserName) {
-		return admService.getAdmUsersByName(admUserName);
-	}
+  @GetMapping("/admUser")
+  public AdmUser getAdmUserByCode(@RequestParam String admUserCode) {
+    return admService.getAdmUserByCode(admUserCode);
+  }
+
+  @GetMapping("/admUsers")
+  public List<AdmUser> getAdmUsersByName(@RequestParam String admUserName) {
+    return admService.getAdmUsersByName(admUserName);
+  }
 }

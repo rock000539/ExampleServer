@@ -4,11 +4,15 @@
  */
 package com.project.frame.config;
 
+import com.project.integration.smb.SmbProperties;
+import java.util.HashMap;
+import java.util.Map;
 import jcifs.CIFSContext;
 import jcifs.context.SingletonContext;
 import jcifs.smb.NtlmPasswordAuthenticator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,24 +22,32 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SmbConfig {
 
-	@Value("${smb.server.url}")
-	String smbServerUrl;
+  private static final Logger LOG = LoggerFactory.getLogger(SmbConfig.class);
 
-	@Value("${smb.server.userName}")
-	String smbServerUserName;
+  private final SmbProperties smbProperties;
 
-	@Value("${smb.server.password}")
-	String smbServerPassword;
+  public SmbConfig(SmbProperties smbProperties) {
+    this.smbProperties = smbProperties;
+  }
 
-	@Bean
-	public CIFSContext cifsContext() {
-		try {
-			NtlmPasswordAuthenticator auth = new NtlmPasswordAuthenticator(smbServerUrl, smbServerUserName, smbServerPassword);
-			CIFSContext baseContext = SingletonContext.getInstance();
-			return baseContext.withCredentials(auth);
-		} catch (Exception e) {
-			log.error("[cifsContext] Error while creating CIFSContext: {}", e.getMessage());
-		}
-		return null;
-	}
+  @Bean
+  public Map<String, CIFSContext> cifsContextMap() {
+    Map<String, CIFSContext> contextMap = new HashMap<>();
+    for (Map.Entry<String, SmbProperties.ServerConfig> entry :
+        smbProperties.getServers().entrySet()) {
+      String serverName = entry.getKey();
+      SmbProperties.ServerConfig config = entry.getValue();
+      try {
+        NtlmPasswordAuthenticator auth =
+            new NtlmPasswordAuthenticator(
+                config.getUrl(), config.getUsername(), config.getPassword());
+        CIFSContext baseContext = SingletonContext.getInstance();
+        contextMap.put(serverName, baseContext.withCredentials(auth));
+        LOG.info("Created CIFSContext for server: {}", serverName);
+      } catch (Exception e) {
+        LOG.error("Error creating CIFSContext for server {}: {}", serverName, e.getMessage());
+      }
+    }
+    return contextMap;
+  }
 }

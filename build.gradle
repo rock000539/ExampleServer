@@ -92,7 +92,11 @@ dependencies {
     implementation 'org.apache.poi:poi-ooxml:5.2.2'
 
 	// Jasperreports
-	implementation 'net.sf.jasperreports:jasperreports:6.19.0'
+    implementation('net.sf.jasperreports:jasperreports:6.19.0') {
+        exclude group: 'org.bouncycastle', module: 'bcpkix-jdk14'
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk14'
+        exclude group: 'org.bouncycastle', module: 'bcutil-jdk14'
+    }
 	implementation 'net.sf.jasperreports:jasperreports-fonts:6.19.0'
 	implementation 'com.lowagie:itext:2.1.7'
 	
@@ -117,6 +121,7 @@ dependencies {
 
     //smb
     implementation group: 'org.codelibs', name: 'jcifs', version: '2.1.38'
+    implementation("org.bouncycastle:bcprov-jdk18on:1.81")
 
     // ESAPI
     implementation ('org.owasp.esapi:esapi:2.4.0.0'){
